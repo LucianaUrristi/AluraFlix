@@ -1,8 +1,15 @@
-# React + Vite
+# AluraFlix
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+Esta aplicacion consiste en registrar, eliminar, actualizar y listar videos. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Siguiendo el flujo de la aplicacion, se puede mostrar un banner con imagen de fondo, un card que llevará al video correspondiente y a su izquierda la categoría a la que pertenece el video.
+
+Luego, en la parte superior, cuando se clickea en el boton "nuevo video" te linkeará al formulario para hacer la registración de cada video.
+Al guardar se renderizará a la página de "Home" y el boton "Limpiar" limpiará el formulario.
+En la página de Home se verá agregado el nuevo video.
+
+Cada tarjeta tiene una función para edita, por lo que se abrirá una ventana emergente para poder modificarla.
+
+La página posee recursividad para dispositivos móviles como tables y celulares.
+
