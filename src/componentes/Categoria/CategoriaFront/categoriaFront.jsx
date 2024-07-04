@@ -39,11 +39,13 @@ const VideoCard = styled.div`
     margin: 10px 0;
     padding: 10px;
     width: 100%;
-    
     iframe {
         width: 30vw;
         height: 30vh;
         border-radius: 15px 15px 0 0;
+        border: 3px solid #6BD1FF;
+        box-shadow: 0px 5px 29px rgba(107, 209, 255, 0.3);
+
     }
 `
 

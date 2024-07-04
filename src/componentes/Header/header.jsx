@@ -15,8 +15,9 @@ const Nav = styled.nav `
     box-sizing: border-box;
     background-color: #262626;
     border-bottom: 4px solid #2271D1;
-    box-shadow: 0px 5px 29px rgba(34, 113, 209, 0.20);
+    box-shadow: 0px 5px 29px rgba(34, 113, 209, 0.2);
     width: 100%;
+    
     img{
         width: 168.45px;
         height: 40px;

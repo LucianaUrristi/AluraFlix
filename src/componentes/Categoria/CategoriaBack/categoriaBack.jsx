@@ -44,6 +44,8 @@ const VideoCard = styled.div`
         width: 30vw;
         height: 30vh;
         border-radius: 15px 15px 0 0;
+        border: 3px solid #00C86F;
+        box-shadow: 0px 5px 29px rgba(0, 200, 111, 0.3);
     }
 `;
 
