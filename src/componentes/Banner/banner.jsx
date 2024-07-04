@@ -1,38 +1,87 @@
-import { styled } from "styled-components"
+import { styled } from "styled-components";
+import PropTypes from 'prop-types';
+
+const BannerContainer = styled.section`
+    display: flex;
+    flex-direction: row;
+    width: 100%;  
+    align-items: center;
+    justify-content: space-between;
+    
+    
+`
 
 const FigureEstilizada = styled.figure`
     background-image: ${props => `url(${props.$backgroundImage})`};
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    width: 100%;
+    margin: 0;
+    padding: 0 5%;
+    min-height: 600px;
+    max-height: 832px;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    iframe {
+        width: 60%;
+        height: 300px;
+        border-radius: 15px;
+
+        @media (max-width: 768px) {
+            height: 200px;
+        }
+
+        @media (max-width: 480px) {
+            height: 150px;
+        }
+    }
+    
+
+    @media (max-width: 768px) {
+        min-height: auto;
+        max-height: 500px;
+        padding: 20px;
+    }
+
+    @media (max-width: 480px) {
+        max-height: 400px;
+        padding: 10px;
+    }
+`
+
+const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    min-height: 600px;
-    max-height: 832px;
-    margin: 0;
-    width: 100%;
-    max-width: 100%;
+    max-width: 50%;
+    
 
     @media (max-width: 768px) {
-        min-height: 200px;
-        padding: 0 32px;
-    }
-
-    @media (max-width: 480px) {
-        min-height: 150px;
-        padding: 0 16px;
+        max-width: 100%;
+        text-align: center;
     }
 `
+const VideoContainer = styled.div`
+width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 
+
+    
+`
 const TituloEstilizado = styled.h1`
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 46px;
     color: #FFFFFF;
-    max-width: 332.92px;
-    padding: 0 64px;
+    max-width: 80%;
     margin-bottom: 0;
 
     @media (max-width: 768px) {
@@ -48,8 +97,7 @@ const Texto = styled.h3`
     font-weight: 100;
     font-size: 18px;
     color: #FFFFFF;
-    max-width: 35%;
-    padding: 0 64px;
+    max-width: 65%;
 
     @media (max-width: 768px) {
         font-size: 16px;
@@ -59,26 +107,64 @@ const Texto = styled.h3`
         font-size: 14px;
     }
 `
+const BotonFront = styled.button`
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6BD1FF;
+    color: #FFFF;
+    font-weight: 600;
+    font-size: 48px;
+    border-radius: 10px;
+    width: 296.82px;
+    height: 92px;
+    border: none;
+    cursor: pointer;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+`
 
-const Banner = ({botonFront, titulo, texto, backgroundImage}) => {
+const Banner = ({ backgroundImage, video, titulo, texto }) => {
     return (
-    <FigureEstilizada $backgroundImage={backgroundImage}>
-        
-            <TituloEstilizado>
-                <img src={botonFront} alt="boton-front-chico"></img>
-                {titulo}
-                </TituloEstilizado>
-            <Texto>{texto}</Texto>
-        
-    </FigureEstilizada>)
+        <BannerContainer>
+            <FigureEstilizada $backgroundImage={backgroundImage}>
+                <TextContainer>
+                    <BotonFront>FRONT END</BotonFront>
+                    <TituloEstilizado>{titulo}</TituloEstilizado>
+                    <Texto>{texto}</Texto>
+                </TextContainer>
+                {video && (
+                    <VideoContainer>
+                        <iframe
+                            src={video.link}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    </VideoContainer>
+                )}
+            </FigureEstilizada>
+        </BannerContainer>
+    );
 }
 
-export default Banner
+Banner.propTypes = {
+    backgroundImage: PropTypes.string.isRequired,
+    video: PropTypes.shape({
+        link: PropTypes.string.isRequired,
+    }),
+    titulo: PropTypes.string.isRequired,
+    texto: PropTypes.string.isRequired,
+};
+
+export default Banner;
+
+
+
 
 // import { useState } from 'react';
-// import PropTypes from 'prop-types';
-// import styles from './Banner.module.css';
-// import banner from '../../assets/banner1.png'; 
+
 
 // function Banner({ card, categoryLookup }) {
 //     const [showDescription, setShowDescription] = useState(false);
@@ -133,7 +219,7 @@ export default Banner
 // }
 
 // Banner.propTypes = {
-//     card: PropTypes.shape({
+//         card: PropTypes.shape({
 //         id: PropTypes.number.isRequired,
 //         title: PropTypes.string.isRequired,
 //         category: PropTypes.string.isRequired,
