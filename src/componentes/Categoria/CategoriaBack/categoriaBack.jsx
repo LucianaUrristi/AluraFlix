@@ -14,7 +14,8 @@ const BotonBackGrande = styled.button`
     width: 432px;
     height: 70px;
     border: none;
-    cursor: pointer;
+    margin: 0 0.5%;
+    /* cursor: pointer; */
 
     @media (max-width: 430px) {
         width: 286px;
@@ -23,8 +24,7 @@ const BotonBackGrande = styled.button`
     }
 `
 const BackContainer = styled.section`
-    height: auto;
-    width: 100%;
+    /* height: auto; */
     display: flex;
     flex-direction: column;
     margin: 1%;
@@ -34,39 +34,15 @@ const VideoContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    
-    /* overflow-x: scroll;
-    overflow-y: hidden;
-    
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #f0f0f0;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background: #D6D6D6;
-        border-radius: 10px;
-        height: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-        background: #9b9999;
-    } */
 `
 const VideoCard = styled.div`
     margin: 10px 0;
     padding: 10px;
-    display: flex;
-    justify-content: space-between;
     width: 100%;
 
     iframe {
-        width: 100%;
-        height: 150%;
+        width: 30vw;
+        height: 30vh;
         border-radius: 15px 15px 0 0;
     }
 `;

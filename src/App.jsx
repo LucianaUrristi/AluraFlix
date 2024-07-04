@@ -39,9 +39,21 @@ const ContenidoGaleria = styled.section`
 `;
 
 const App = () => {
-  const [videos, setVideos] = useState(Array.isArray(db.videos) ? db.videos : []);
+
+  const [videos] = useState(Array.isArray(db.videos) ? db.videos : []);
   const video = videos.find(v => v.id === 1);
-  console.log('Video data:', video);
+  
+  //const [videos, setVideos] = useState(Array.isArray(db.videos) ? db.videos : []);
+
+  // Ejemplo de uso de setVideos
+// const agregarVideo = (nuevoVideo) => {
+//   setVideos([...videos, nuevoVideo]);
+// };
+
+// const eliminarVideo = (videoId) => {
+//   const nuevosVideos = videos.filter(video => video.id !== videoId);
+//   setVideos(nuevosVideos);
+// };
   return (
     <>
       <Fondo>

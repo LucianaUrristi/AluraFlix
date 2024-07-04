@@ -7,8 +7,7 @@ import styled from "styled-components";
 const CategoriasContainer = styled.section`
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    height: 100%;
+    height: auto;
     margin: 0 2%;
 `;
 
@@ -22,16 +21,15 @@ const Categorias = ( {videos = []} ) => {
 
         <CategoriasContainer>
             <CategoriaFront videos={frontEndVideos} />
-      <CategoriaBack videos={backEndVideos} />
-      <CategoriaInnovacionYGestion videos={innovacionYGestionVideos} />                                       
-
+            <CategoriaBack videos={backEndVideos} />
+            <CategoriaInnovacionYGestion videos={innovacionYGestionVideos} />                                       
         </CategoriasContainer>
     )
-        
 }
-
-export default Categorias
 
 Categorias.propTypes = {
     videos: PropTypes.array.isRequired,
 };
+
+export default Categorias
+
