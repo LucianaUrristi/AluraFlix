@@ -27,7 +27,6 @@ const BotonFrontGrande = styled.button`
 
 `
 const FrontContainer = styled.section`
-    /* height: auto; */
     display: flex;
     flex-direction: column;
     margin: 1%;
@@ -41,7 +40,20 @@ const FrontContainer = styled.section`
 const VideoContainer = styled.div`
     display: flex;
     flex-direction: row;
-    width: 100%;    
+    
+    
+
+    @media (max-width: 768px) {
+        
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        width: 80%;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+    }   
+    
+    
     
 `
 const VideoCard = styled.div`
@@ -51,9 +63,9 @@ const VideoCard = styled.div`
     align-items: center;
     overflow: hidden;
     margin: 10px;
-    width: 30vw;
     border: 5px solid #6BD1FF;
     border-radius: 15px;
+    width: 100%;
     
     img{
 
@@ -62,6 +74,12 @@ const VideoCard = styled.div`
         z-index: 1;
         object-fit: cover;
         cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        min-width: 250px;
+        max-width: 300px;
+        flex: 0 0 30%; 
     }
 `
 const ShadowContainer = styled.div`
@@ -81,7 +99,6 @@ const ModifyContent = styled.div`
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: 100%;
     background-color: #03122F;
     border-top: 5px solid #6BD1FF;
     box-shadow:  0 4px 29px 0 rgba(107, 209, 255, 1);
@@ -128,8 +145,8 @@ const CategoriaFront = ({ videos = [] }) => {
                             alt="video thumbnail"
                         />
                         <ModifyContent>
-                            <button><img src = {eliminar}/>BORRAR</button>
-                            <button><img src = {editar}/>EDITAR</button> 
+                            <button><img src = {eliminar} alt="Eliminar"/>BORRAR</button>
+                            <button><img src = {editar} alt="Editar"/>EDITAR</button> 
                         </ModifyContent>
                         <ShadowContainer />
                     </VideoCard>

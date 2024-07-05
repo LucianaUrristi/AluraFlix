@@ -28,16 +28,26 @@ const BackContainer = styled.section`
     display: flex;
     flex-direction: column;
     margin: 1%;
-    
+
     @media (max-width: 768px) {
         align-items: center;
     }
+
+    
 `
 const VideoContainer = styled.div`
     display: flex;
     flex-direction: row;
-    width: 100%;    
+    width: 100%;
 
+    @media (max-width: 768px) {
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        width: 80%;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
 `
 const VideoCard = styled.div`
     position: relative;
@@ -46,8 +56,7 @@ const VideoCard = styled.div`
     align-items: center;
     overflow: hidden;
     margin: 10px;
-    width: 30vw;
-    
+    width: 100%;
     border: 5px solid #00C86F;
     border-radius: 15px;
 
@@ -59,6 +68,13 @@ const VideoCard = styled.div`
         object-fit: cover;
         cursor: pointer;
     }
+
+    @media (max-width: 768px) {
+        min-width: 250px;
+        max-width: 300px;
+        flex: 0 0 30%; 
+    }
+    
 `
 const ShadowContainer = styled.div`
 
@@ -77,7 +93,6 @@ const ModifyContent = styled.div`
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: 100%;
     background-color: #03122F;
     border-top: 5px solid #00C86F;
     box-shadow:  0 4px 29px 0 rgba(0, 200, 111, 1);
@@ -100,6 +115,7 @@ const ModifyContent = styled.div`
         align-items: center;
         justify-content: center;
         gap: 10px;
+        
     }
     
     img{
@@ -109,6 +125,7 @@ const ModifyContent = styled.div`
         pointer-events: none;
         border: none;
     }
+    
 
 
 `

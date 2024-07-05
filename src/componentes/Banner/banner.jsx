@@ -18,8 +18,7 @@ const FigureEstilizada = styled.figure`
     width: 100%;
     margin: 0;
     padding: 0 5%;
-    height: 100%;
-    min-height: 600px;
+    min-height: 80vh;
     display:flex;
     flex-direction: row;
     align-items: center;
@@ -29,9 +28,11 @@ const FigureEstilizada = styled.figure`
     
 
     @media (max-width: 768px) {
-        min-height: auto;
-        max-height: 500px;
-        padding: 20px;
+        display: flex;
+        background-position-y:0;
+        align-items: center;
+        height: 50vh;
+        margin: 0;
     }
 
     @media (max-width: 480px) {
@@ -48,7 +49,7 @@ const TextContainer = styled.div`
 
     @media (max-width: 768px) {
         max-width: 100%;
-        text-align: center;
+        text-align: start;
     }
     
 `
@@ -67,6 +68,9 @@ const VideoCard = styled.div`
         width: 100%;
         background-size: cover;
         cursor: pointer;
+    }
+    @media (max-width: 768px) {
+        min-width: 30%;
     }
     
 `
@@ -90,10 +94,6 @@ const TituloEstilizado = styled.h1`
     margin-bottom: 0;
 
     @media (max-width: 768px) {
-        font-size: 36px;
-    }
-
-    @media (max-width: 480px) {
         font-size: 28px;
     }
 `
@@ -105,10 +105,6 @@ const Texto = styled.h3`
     max-width: 65%;
 
     @media (max-width: 768px) {
-        font-size: 16px;
-    }
-
-    @media (max-width: 480px) {
         font-size: 14px;
     }
 `
@@ -127,8 +123,8 @@ const BotonFront = styled.button`
     border: none;
     
     @media (max-width: 768px) {
-        width: 40%;
-        height: 40%;
+        width: 250px;
+        height: 50px;
         font-size: 28px;
     }
 `

@@ -10,7 +10,7 @@ const CategoriasContainer = styled.section`
     height: auto;
     margin: 0 2%;
 
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
         margin-top: 10%;
     }
 `;
