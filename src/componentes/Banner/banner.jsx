@@ -8,7 +8,6 @@ const BannerContainer = styled.section`
     align-items: center;
     justify-content: space-between;
     
-    
 `
 
 const FigureEstilizada = styled.figure`
@@ -19,26 +18,14 @@ const FigureEstilizada = styled.figure`
     width: 100%;
     margin: 0;
     padding: 0 5%;
+    height: 100%;
     min-height: 600px;
-    max-height: 832px;
     display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 
-    iframe {
-        width: 60%;
-        height: 300px;
-        border-radius: 15px;
-
-        @media (max-width: 768px) {
-            height: 200px;
-        }
-
-        @media (max-width: 480px) {
-            height: 150px;
-        }
-    }
+    
     
 
     @media (max-width: 768px) {
@@ -48,11 +35,9 @@ const FigureEstilizada = styled.figure`
     }
 
     @media (max-width: 480px) {
-        max-height: 400px;
-        padding: 10px;
+        display:none;
     }
 `
-
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -65,17 +50,37 @@ const TextContainer = styled.div`
         max-width: 100%;
         text-align: center;
     }
+    
 `
-const VideoContainer = styled.div`
-width: 100%;
+const VideoCard = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    
+    position: relative; 
+    overflow: hidden;
+    margin: 10px;
+    width: 30%;
+    border: 3px solid #6BD1FF;
+    border-radius: 15px;
 
-
+    img{
+        width: 100%;
+        background-size: cover;
+        cursor: pointer;
+    }
     
 `
+const ShadowContainer = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0px 4px 29px rgba(107, 209, 255, 0.75);
+    z-index: 2;
+    pointer-events: none;
+`
+
 const TituloEstilizado = styled.h1`
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
@@ -120,29 +125,34 @@ const BotonFront = styled.button`
     width: 296.82px;
     height: 92px;
     border: none;
-    cursor: pointer;
+    
     @media (max-width: 768px) {
-        width: 100%;
+        width: 40%;
+        height: 40%;
+        font-size: 28px;
     }
 `
+
 
 const Banner = ({ backgroundImage, video, titulo, texto }) => {
     return (
         <BannerContainer>
+            
             <FigureEstilizada $backgroundImage={backgroundImage}>
+                
                 <TextContainer>
                     <BotonFront>FRONT END</BotonFront>
                     <TituloEstilizado>{titulo}</TituloEstilizado>
                     <Texto>{texto}</Texto>
                 </TextContainer>
                 {video && (
-                    <VideoContainer>
-                        <iframe
-                            src={video.link}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
-                    </VideoContainer>
+                    <VideoCard>
+                        <img
+                            src={video.photo}
+                            alt="video thumbnail"
+                        />
+                        <ShadowContainer/>
+                    </VideoCard>
                 )}
             </FigureEstilizada>
         </BannerContainer>
@@ -153,9 +163,11 @@ Banner.propTypes = {
     backgroundImage: PropTypes.string.isRequired,
     video: PropTypes.shape({
         link: PropTypes.string.isRequired,
+        photo: PropTypes.string.isRequired
     }),
     titulo: PropTypes.string.isRequired,
     texto: PropTypes.string.isRequired,
+    
 };
 
 export default Banner;

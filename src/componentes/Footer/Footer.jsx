@@ -3,8 +3,9 @@ import { styled } from 'styled-components';
 
 
 const Nav = styled.nav `
+    margin-top:5%;
     width: 100%;
-    height: 125px;
+    height: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,17 +13,12 @@ const Nav = styled.nav `
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.90); ;
     border-top: 4px solid #2271D1;
-    box-shadow: 0px 5px 29px rgba(34, 113, 209, 0.20);
+    box-shadow: 0px 5px 29px rgba(34, 113, 209, 1);
     width: 100%;
     img{
-        width: 168.45px;
-        height: 40px;
+        width: 100%;
+        height: 100%;
     }
-
-    @media (max-width: 768px) {
-            width: 120px;
-            height: 30px;
-        }
 `
 
 const Footer = () => {

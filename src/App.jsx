@@ -70,13 +70,13 @@ const App = () => {
                   titulo="Challenge React"
                   texto="Este challenge es una forma de aprendizaje. Es un mecanismo donde podrás comprometerte en la resolución de un problema para poder aplicar todos los conocimientos adquiridos en la formación React."
                   backgroundImage={BannerBackground}
-
                 />
-                <Categorias videos={videos}/>
                 
+                <Categorias videos={videos}/>
                 
               </ContenidoGaleria>
             </MainContainer>
+            
           </AppContainer>
           {/* <ModalZoom /> */}
           <Footer />

@@ -9,7 +9,12 @@ const CategoriasContainer = styled.section`
     flex-direction: column;
     height: auto;
     margin: 0 2%;
+
+    @media (max-width: 480px) {
+        margin-top: 10%;
+    }
 `;
+
 
 
 const Categorias = ( {videos = []} ) => {  
@@ -21,6 +26,7 @@ const Categorias = ( {videos = []} ) => {
 
         <CategoriasContainer>
             <CategoriaFront videos={frontEndVideos} />
+            
             <CategoriaBack videos={backEndVideos} />
             <CategoriaInnovacionYGestion videos={innovacionYGestionVideos} />                                       
         </CategoriasContainer>
