@@ -3,36 +3,31 @@ import PropTypes from 'prop-types';
 
 const BannerContainer = styled.section`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;  
     align-items: center;
-    justify-content: space-between;
-    
+    justify-content: center;
+    overflow: hidden;
 `
-
 const FigureEstilizada = styled.figure`
     background-image: ${props => `url(${props.$backgroundImage})`};
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     width: 100%;
+    height: 80vh;
     margin: 0;
     padding: 0 5%;
     min-height: 80vh;
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-
-    
-    
+    justify-content: center;
 
     @media (max-width: 768px) {
-        display: flex;
-        background-position-y:0;
-        align-items: center;
+        
         height: 50vh;
-        margin: 0;
+        
     }
 
     @media (max-width: 480px) {
@@ -45,10 +40,11 @@ const TextContainer = styled.div`
     align-items: start;
     justify-content: center;
     max-width: 50%;
+    z-index: 1;
     
 
     @media (max-width: 768px) {
-        max-width: 100%;
+        width: 100%;
         text-align: start;
     }
     
@@ -63,9 +59,11 @@ const VideoCard = styled.div`
     width: 30%;
     border: 3px solid #6BD1FF;
     border-radius: 15px;
+    z-index: 1;
 
     img{
         width: 100%;
+        height: auto;
         background-size: cover;
         cursor: pointer;
     }
@@ -103,6 +101,7 @@ const Texto = styled.h3`
     font-size: 18px;
     color: #FFFFFF;
     max-width: 65%;
+    
 
     @media (max-width: 768px) {
         font-size: 14px;
@@ -167,74 +166,3 @@ Banner.propTypes = {
 };
 
 export default Banner;
-
-
-
-
-// import { useState } from 'react';
-
-
-// function Banner({ card, categoryLookup }) {
-//     const [showDescription, setShowDescription] = useState(false);
-
-//     if (!card || !card.category || !categoryLookup || !categoryLookup[card.category]) {
-//         return null;
-//     }
-
-//     const { title, link, description } = card;
-//     const { name, primaryColor } = categoryLookup[card.category];
-
-//     const titleStyle = {
-//         backgroundColor: primaryColor,
-
-//     };
-
-//     const toggleDescription = () => {
-//         setShowDescription(!showDescription);
-//     };
-
-//     return (
-//         <main id="banner" className={styles.layer} style={{ backgroundImage: `url(${banner})`, '--primary-color': primaryColor }}>
-//             <div className={styles.gradient}></div> 
-//             <section className={styles.content}>
-//                 <h1 className={styles.name} style={titleStyle}>{name}</h1>
-//                 <h2 className={styles.title}>Challenge React</h2>
-//                 <p className={styles.subtitle}>
-//                     Este challenge es una forma de aprendizaje. Es un mecanismo donde podrás comprometerte en la resolución de un problema para poder aplicar todos los conocimientos adquiridos en la formación React.
-//                 </p>
-//                 <button onClick={toggleDescription} className={styles.toggleButton}>
-//                     {showDescription ? 'Ocultar descripción' : 'Ver descripción...'}
-//                 </button>
-//                 {showDescription && (
-//                     <div className={styles.description}>
-//                         <h2 className={styles.title2}>{title}</h2>
-//                         <p className={styles.subtitle2}>{description}</p>
-//                     </div>
-//                 )}
-//             </section>
-//             <section className={styles.containerBanner}>
-//                 <iframe
-//                     src={link}
-//                     title={title}
-//                     className={styles.video}
-//                     frameBorder="0"
-//                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-//                     allowFullScreen
-//                 ></iframe>
-//             </section>
-//         </main>
-//     );
-// }
-
-// Banner.propTypes = {
-//         card: PropTypes.shape({
-//         id: PropTypes.number.isRequired,
-//         title: PropTypes.string.isRequired,
-//         category: PropTypes.string.isRequired,
-//         link: PropTypes.string.isRequired,
-//         description: PropTypes.string.isRequired,
-//     }),
-//     categoryLookup: PropTypes.object.isRequired,
-// };
-
-// export default Banner;

@@ -24,6 +24,7 @@ const Nav = styled.nav `
         width: 168.45px;
         height: 40px;
     }
+
     @media (max-width: 430px) {
         display: none;
     }
@@ -35,15 +36,14 @@ const Botones = styled.div`
     flex-direction: row;
     gap: 25px;
     
+    
     @media (max-width: 768px) {
         gap: 15px;
+        width: 50%;
+        
     }
 
-    @media (max-width: 480px) {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
+    
 `
 
 const Header = () => {

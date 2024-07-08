@@ -16,6 +16,11 @@ const BotonHome = styled.button`
     box-shadow: inset 0px 0px 12px 4px rgba(34, 113, 209, 1);
     cursor: pointer;
 
+    @media (max-width: 768px) {
+        font-size: 18px;
+        
+    }
+
     @media (max-width: 430px) {
         border-radius: 50px;
         background-color: rgba(34, 113, 209, 0.24);

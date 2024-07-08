@@ -1,8 +1,18 @@
 import { styled } from "styled-components";
 import PropTypes from 'prop-types';
-import eliminar from '../../../assets/eliminar.png'
-import editar from '../../../assets/editar.png'
+import Card from "../Card/card";
 
+
+const FrontContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    margin: 1%;
+
+    @media (max-width: 768px) {
+        align-items: center;
+    }
+
+`
 const BotonFrontGrande = styled.button`
     font-family: "Roboto", sans-serif;
     display: flex;
@@ -20,19 +30,8 @@ const BotonFrontGrande = styled.button`
     
 
     @media (max-width: 430px) {
-        width: 286px;
-        height: 70px;
-        font-size: 24px;
-    }
-
-`
-const FrontContainer = styled.section`
-    display: flex;
-    flex-direction: column;
-    margin: 1%;
-
-    @media (max-width: 768px) {
-        align-items: center;
+        width: 100%;
+        font-size: 1.5rem;
     }
 
 `
@@ -40,98 +39,54 @@ const FrontContainer = styled.section`
 const VideoContainer = styled.div`
     display: flex;
     flex-direction: row;
-    
-    
+    justify-content: space-between;
+    -webkit-overflow-scrolling: touch;
+    gap: 2rem;
+    padding-bottom: 10px;
+    margin: 0;
+    width: 100%;
 
+    &::-webkit-scrollbar{
+            background-color: rgba(34, 113, 209, 0.17);
+            height: 20px;
+            border-radius: 10px;
+        }
+    &::-webkit-scrollbar-thumb{
+        background-color: rgba(34, 113, 209);
+        border-radius: 10px;
+        border: 5px solid transparent; 
+        box-sizing: border-box;
+        height: 10px;
+        background-clip: padding-box;
+    }
+    
     @media (max-width: 768px) {
-        
-        justify-content: flex-start;
-        overflow-x: auto;
         flex-wrap: nowrap;
         width: 80%;
-        padding-bottom: 10px;
-        -webkit-overflow-scrolling: touch;
-    }   
-    
-    
-    
-`
-const VideoCard = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    margin: 10px;
-    border: 5px solid #6BD1FF;
-    border-radius: 15px;
-    width: 100%;
-    
-    img{
-
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        object-fit: cover;
-        cursor: pointer;
+        overflow-x: auto;
+        gap: 3rem;
     }
 
-    @media (max-width: 768px) {
-        min-width: 250px;
-        max-width: 300px;
-        flex: 0 0 30%; 
+    @media (max-width: 430px) {
+        overflow-x: auto;
+        width: 90%;
     }
-`
-const ShadowContainer = styled.div`
 
-position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: inset 0px 4px 29px rgba(107, 209, 255, 0.75);
-    z-index: 2;
-    pointer-events: none;
-`
-const ModifyContent = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    background-color: #03122F;
-    border-top: 5px solid #6BD1FF;
-    box-shadow:  0 4px 29px 0 rgba(107, 209, 255, 1);
-    z-index: 2;
-
-    button{
-        font-family: "Roboto", sans-serif;
-        font-size: 16px;
-        color: #FFFF;
-        font-weight: 600;
-        background-color: transparent;
-        border-radius: 10px;
-        width: 180.13px;
-        height: 54px;
-        cursor: pointer;
-        border: none;
-        margin: 0 0.5%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-    }
     
-    img{
-        width: 20px;
-        height: 20px;
-        z-index: 2;
-        pointer-events: none;
-        border: none;
-    }
+
+    /* @media (max-width: 1440px){
+        overflow-x: auto;
+        width: 85%;
+    } */
+
+    
+       
+
+    
+
 `
-const CategoriaFront = ({ videos = [] }) => {
+
+const CategoriaFront = ({ videos = [], alSeleccionarEditor }) => {
     const filteredVideos = videos.filter(video => video.id !== 1);
     return (
         
@@ -139,25 +94,19 @@ const CategoriaFront = ({ videos = [] }) => {
             <BotonFrontGrande>FRONT END</BotonFrontGrande>
             <VideoContainer>
                 {filteredVideos.map(video => (
-                    <VideoCard key={video.id}>
-                        <img
-                            src={video.photo}
-                            alt="video thumbnail"
-                        />
-                        <ModifyContent>
-                            <button><img src = {eliminar} alt="Eliminar"/>BORRAR</button>
-                            <button><img src = {editar} alt="Editar"/>EDITAR</button> 
-                        </ModifyContent>
-                        <ShadowContainer />
-                    </VideoCard>
-                ))}
+                    <Card
+                        key={video.id}
+                        video= {video}
+                        onEdit={() => alSeleccionarEditor(video)}/>
+                    ))}
             </VideoContainer>
         </FrontContainer>  
     )
 }
 
 CategoriaFront.propTypes = {
-    videos: PropTypes.array.isRequired,
+    alSeleccionarEditor: PropTypes.func.isRequired,
+    videos: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default CategoriaFront

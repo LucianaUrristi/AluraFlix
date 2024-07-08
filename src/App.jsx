@@ -8,6 +8,8 @@ import Footer from "./componentes/Footer/Footer";
 import Categorias from "./componentes/Categoria/Categorias";
 
 import { useState } from "react";
+import ModalZoom from "./componentes/Modal/modal";
+import FormularioEditor from "./componentes/FormularioEditor/formularioEditor";
 
 const Fondo= styled.div`
   background: #262626;
@@ -40,9 +42,26 @@ const ContenidoGaleria = styled.section`
 
 const App = () => {
 
-  const [videos] = useState(Array.isArray(db.videos) ? db.videos : []);
+  const [videos, setVideos] = useState(Array.isArray(db.videos) ? db.videos : []);
   const video = videos.find(v => v.id === 1);
+
+  const [editor, setEditor] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   
+  const handleEdit = (video) => {
+    setEditor(video);
+};
+
+const handleSave = (updatedVideo) => {
+    setVideos((prevVideos) =>
+        prevVideos.map((video) => (video.id === updatedVideo.id ? updatedVideo : video))
+    );
+    setEditor(null);
+};
+
+const handleCancel = () => {
+    setEditor(null);
+};
   //const [videos, setVideos] = useState(Array.isArray(db.videos) ? db.videos : []);
 
   // Ejemplo de uso de setVideos
@@ -71,14 +90,21 @@ const App = () => {
                   texto="Este challenge es una forma de aprendizaje. Es un mecanismo donde podrás comprometerte en la resolución de un problema para poder aplicar todos los conocimientos adquiridos en la formación React."
                   backgroundImage={BannerBackground}
                 />
-                
-                <Categorias videos={videos}/>
-                
+                <div>
+                  <Categorias videos={videos} alSeleccionarEditor={handleEdit}/>
+                  {editor && (
+                  <FormularioEditor
+                    video={editor}
+                    onSave={handleSave}
+                    onCancel={handleCancel}
+                  />
+                  )}
+                </div>
               </ContenidoGaleria>
             </MainContainer>
             
           </AppContainer>
-          {/* <ModalZoom /> */}
+          <ModalZoom video={selectedVideo}/>
           <Footer />
         {/* </GlobalContextProvider> */}
       </Fondo>
@@ -88,3 +114,5 @@ const App = () => {
 };
 
 export default App;
+
+

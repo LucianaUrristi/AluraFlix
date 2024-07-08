@@ -17,7 +17,7 @@ const CategoriasContainer = styled.section`
 
 
 
-const Categorias = ( {videos = []} ) => {  
+const Categorias = ( {videos = [], alSeleccionarEditor } ) => {  
     const frontEndVideos = videos.filter(video => video.category === "FRONT END");
     const backEndVideos = videos.filter(video => video.category === "BACK END");
     const innovacionYGestionVideos = videos.filter(video => video.category === "INNOVACIÓN Y GESTIÓN");
@@ -25,16 +25,16 @@ const Categorias = ( {videos = []} ) => {
     return (
 
         <CategoriasContainer>
-            <CategoriaFront videos={frontEndVideos} />
-            
-            <CategoriaBack videos={backEndVideos} />
-            <CategoriaInnovacionYGestion videos={innovacionYGestionVideos} />                                       
+            <CategoriaFront videos={frontEndVideos} alSeleccionarEditor={alSeleccionarEditor} />
+            <CategoriaBack videos={backEndVideos} alSeleccionarEditor={alSeleccionarEditor}/>
+            <CategoriaInnovacionYGestion videos={innovacionYGestionVideos}  alSeleccionarEditor={alSeleccionarEditor} />                                       
         </CategoriasContainer>
     )
 }
 
 Categorias.propTypes = {
     videos: PropTypes.array.isRequired,
+    alSeleccionarEditor: PropTypes.func.isRequired,
 };
 
 export default Categorias
