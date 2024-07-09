@@ -68,7 +68,7 @@ const VideoContainer = styled.div`
     
 `
 
-const CategoriaInnovacionYGestion = ({ videos = [], alSeleccionarEditor }) => {
+const CategoriaInnovacionYGestion = ({ videos = [], alSeleccionarEditor, onDelete }) => {
     return (
         <IyGContainer>
             <BotonIYGGrande>INNOVACIÓN Y GESTIÓN</BotonIYGGrande>
@@ -77,7 +77,8 @@ const CategoriaInnovacionYGestion = ({ videos = [], alSeleccionarEditor }) => {
                     <Card 
                         key={video.id}
                         video= {video}
-                        onEdit={() => alSeleccionarEditor(video)}
+                        handleEdit={() => alSeleccionarEditor(video)}
+                        handleDelete={() => onDelete(video)}
                     />
                 ))}
             </VideoContainer>
@@ -88,6 +89,7 @@ const CategoriaInnovacionYGestion = ({ videos = [], alSeleccionarEditor }) => {
 CategoriaInnovacionYGestion.propTypes = {
     alSeleccionarEditor: PropTypes.func.isRequired,
     videos: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default CategoriaInnovacionYGestion

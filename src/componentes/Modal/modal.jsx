@@ -1,7 +1,6 @@
 import { PropTypes } from 'prop-types';
-import FormularioEditor from '../FormularioEditor/formularioEditor';
 import styled from 'styled-components';
-
+import FormularioEditor from '../FormularioEditor/formularioEditor';
 
 const Overlay = styled.div`
     background-color: rgba(3, 18, 47, 0.76);
@@ -10,31 +9,46 @@ const Overlay = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 99;
 `  
-
-
 const DialogEstilizado = styled.dialog`
     position: absolute;
     top: 294px;
+    z-index: 100;
+    background-color: transparent;
+    border: none;
 `
 
-const ModalZoom = ({editor}) =>{
+const ModalZoom = ({ video, mostrarFormulario, onSave, onCancel }) =>{
+    
+    
+    if (!video) {
+        return null;
+    }
+
     return <>
-        {editor && <>
+        <>
             <Overlay />
-            <DialogEstilizado open={!!editor}>
-                <FormularioEditor editor= {editor} expandida = {true}/>
-                <form method="dialog">
-                    <button formMethod="dialog">close</button>
-                </form>
+            <DialogEstilizado open={!!video}>
+                <div>
+                    {mostrarFormulario && (
+                        <FormularioEditor 
+                            video={video} 
+                            onSave={onSave} 
+                            onCancel={onCancel} 
+                        />
+                    )}
+                </div>
             </DialogEstilizado>
-        </>}
+        </>
     </>
 }
 
 ModalZoom.propTypes = {
-    editor: PropTypes.string,
-
+    video: PropTypes.object,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    mostrarFormulario: PropTypes.bool,
 };
 
 export default ModalZoom

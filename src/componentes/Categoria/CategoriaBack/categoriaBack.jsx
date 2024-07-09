@@ -73,7 +73,7 @@ const VideoContainer = styled.div`
 
 
 
-const CategoriaBack = ({ videos = [], alSeleccionarEditor }) => {
+const CategoriaBack = ({ videos = [], alSeleccionarEditor, onDelete }) => {
     return (
         <BackContainer>
             <BotonBackGrande>BACK END</BotonBackGrande>
@@ -82,7 +82,8 @@ const CategoriaBack = ({ videos = [], alSeleccionarEditor }) => {
                     <Card
                     key={video.id}
                     video= {video}
-                    onEdit={() => alSeleccionarEditor(video)}
+                    handleEdit={() => alSeleccionarEditor(video)}
+                    handleDelete={() => onDelete(video)}
                 />
                     
                 ))}
@@ -94,6 +95,7 @@ const CategoriaBack = ({ videos = [], alSeleccionarEditor }) => {
 CategoriaBack.propTypes = {
     alSeleccionarEditor: PropTypes.func.isRequired,
     videos: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default CategoriaBack

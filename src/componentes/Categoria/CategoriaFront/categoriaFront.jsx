@@ -86,7 +86,7 @@ const VideoContainer = styled.div`
 
 `
 
-const CategoriaFront = ({ videos = [], alSeleccionarEditor }) => {
+const CategoriaFront = ({ videos = [], alSeleccionarEditor, onDelete }) => {
     const filteredVideos = videos.filter(video => video.id !== 1);
     return (
         
@@ -97,7 +97,9 @@ const CategoriaFront = ({ videos = [], alSeleccionarEditor }) => {
                     <Card
                         key={video.id}
                         video= {video}
-                        onEdit={() => alSeleccionarEditor(video)}/>
+                        handleEdit={() => alSeleccionarEditor(video)}
+                        handleDelete={() => onDelete(video)}
+                        />
                     ))}
             </VideoContainer>
         </FrontContainer>  
@@ -107,6 +109,7 @@ const CategoriaFront = ({ videos = [], alSeleccionarEditor }) => {
 CategoriaFront.propTypes = {
     alSeleccionarEditor: PropTypes.func.isRequired,
     videos: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default CategoriaFront

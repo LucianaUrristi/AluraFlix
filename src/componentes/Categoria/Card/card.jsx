@@ -4,11 +4,12 @@ import eliminar from '../../../assets/eliminar.png'
 import editar from '../../../assets/editar.png'
 import { PropTypes } from 'prop-types';
 
+
 const categoryColors={
     "FRONT END": "rgba(107, 209, 255, 0.75)",
     "BACK END": "rgba(0, 200, 111, 0.75)",
     "INNOVACIÓN Y GESTIÓN": "rgba(255, 186, 5, 0.75)"
-};
+}
 
 const Figure = styled.figure`
     width: 100%;
@@ -19,7 +20,7 @@ const Figure = styled.figure`
     border-radius: 15px;
 
     
-`;
+`
 
 const VideoCard = styled.div`
     position: relative;
@@ -74,7 +75,7 @@ const Pie = styled.div`
     max-height:3rem;
 `
 
-const Card = ({video, onEdit}) => {
+const Card = ({video, handleEdit, handleDelete}) => {
     
     return (
         <Figure>
@@ -82,12 +83,11 @@ const Card = ({video, onEdit}) => {
                 <img src={video.photo} alt="video thumbnail" />
 
                 <Pie category={video.category}>
-                    <BotonIcono>
+                    <BotonIcono onClick={() => handleDelete(video)}>
                         <img className="botones" src={eliminar} alt="Eliminar" />
                         BORRAR
                     </BotonIcono>
-                    <BotonIcono
-                        onClick={() => onEdit(video)}>
+                    <BotonIcono onClick={() => handleEdit(video)}>
                         <img className="botones" src={editar} alt="Editar" />
                         EDITAR
                     </BotonIcono>
@@ -100,7 +100,8 @@ const Card = ({video, onEdit}) => {
 
 Card.propTypes = {
     video: PropTypes.object.isRequired,
-    onEdit: PropTypes.func.isRequired,
+    handleEdit: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired,
 };
 
 export default Card;

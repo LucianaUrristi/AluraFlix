@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BotonHome from '../Botones/botonHome';
 import BotonNV from '../Botones/botonNV';
+import { useState } from 'react';
 
 const FormContainer = styled.div`
     display: flex;
@@ -11,7 +12,6 @@ const FormContainer = styled.div`
     background-color: #03122F;
     border: 5px solid #6BD1FF;
     border-radius: 15px;
-    width: ${(props) => (props.$expandida ? "90%" : "974px")};
     height: 714.5px;
     margin: auto;
     padding: 5%;
@@ -70,71 +70,95 @@ const Botones = styled.div`
     margin: 5%;
 `
 
-const FormularioEditor = ({ video, onSave, onCancel, expandida = false }) => {
+const FormularioEditor = ({ video, onSave, onCancel}) => {
+    const [formValues, setFormValues] = useState({
+        id: video.id,
+        title: video.title,
+        category: video.category,
+        photo: video.photo,
+        link: video.link,
+        description: video.description,
+    });
+    
+    const handleChange = (e) => {
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    };
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave(formValues);
+    };
+    
+    const handleCancel = () => {
+        setFormValues({
+            title: video.title,
+            category: video.category,
+            photo: video.photo,
+            link: video.link,
+            description: video.description,
+        });
+        onCancel();
+    };
+    
     if (!video) {
         return null;
     }
 
-    const { title, category, photo, link, description } = video;
 
     return (
-        <FormContainer $expandida={expandida}>
-            <FormTitulo>EDITAR CARD:</FormTitulo>
-            <Form onSubmit={(e) => {
-                e.preventDefault();
-                onSave({ title, category, photo, link, description });
-                }}>
-                
-                <Label>Título</Label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => onSave({ ...video, title: e.target.value })}
-                    />
-                <Label>Categoría</Label>
-                    <select
-                        value={category}
-                        onChange={(e) => onSave({ ...video, category: e.target.value })}>
-                            <option  value={category.value}>{category}</option>
-                            <option  value={category.value}>FRONT END</option>
-                            <option  value={category.value}>BACK END</option>
-                            <option  value={category.value}>INNOVACIÓN Y GESTIÓN</option>
-                    
-                    
-                    </select>
-                <Label>Imagen</Label>
-                    <input
-                        type="text"
-                        value={photo}
-                        onChange={(e) => onSave({ ...video, photo: e.target.value })}
-                    />
-                <Label>Video</Label>
-                    <input
-                        type="text"
-                        value={link}
-                        onChange={(e) => onSave({ ...video, link: e.target.value })}
-                    />
-                
-                <Label>Description</Label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => onSave({ ...video, description: e.target.value })}
-                    />
-                <Botones>
-                    <BotonHome type="submit">GUARDAR</BotonHome>
-                    <BotonNV type="button" onClick={onCancel}>LIMPIAR</BotonNV>
-                </Botones>
-            </Form>
-        </FormContainer>
+        <FormContainer onSubmit={handleSubmit}>
+                <FormTitulo>EDITAR CARD:</FormTitulo>
+                    <Form>
+                        
+                        <Label>Título</Label>
+                            <input
+                                type="text"
+                                name="title"
+                                value={formValues.title}
+                                onChange={handleChange}
+                            />
+                        <Label>Categoría</Label>
+                            <select name="category"
+                                value={formValues.category}
+                                onChange={handleChange}>
+                                    <option  value={formValues.category.value}>{formValues.category}</option>
+                                    <option  value="FRONT END">FRONT END</option>
+                                    <option  value="BACK END">BACK END</option>
+                                    <option  value="INNOVACIÓN Y GESTIÓN">INNOVACIÓN Y GESTIÓN</option>
+                            </select>
+                        <Label>Imagen</Label>
+                            <input
+                                type="text"
+                                name="photo"
+                                value={formValues.photo}
+                                onChange={handleChange}
+                            />
+                        <Label>Video</Label>
+                            <input
+                                type="text"
+                                name="link"
+                                value={formValues.link}
+                                onChange={handleChange}
+                            />
+                        <Label>Description</Label>
+                            <textarea
+                                name="description"
+                                value={formValues.description}
+                                onChange={handleChange}
+                            />
+                        <Botones>
+                            <BotonHome type="button" onClick={handleSubmit}>GUARDAR</BotonHome>
+                            <BotonNV type="button" onClick={handleCancel}>CANCELAR</BotonNV>
+                        </Botones>
+                    </Form>
+                </FormContainer>
     );
 };
 
 FormularioEditor.propTypes = {
     video: PropTypes.object,
-    category: PropTypes.string,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
-    expandida: PropTypes.bool,
 };
 
 export default FormularioEditor;

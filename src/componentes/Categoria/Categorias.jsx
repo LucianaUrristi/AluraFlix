@@ -17,7 +17,7 @@ const CategoriasContainer = styled.section`
 
 
 
-const Categorias = ( {videos = [], alSeleccionarEditor } ) => {  
+const Categorias = ( {videos = [], alSeleccionarEditor, alSolicitarZoom, onDelete } ) => {  
     const frontEndVideos = videos.filter(video => video.category === "FRONT END");
     const backEndVideos = videos.filter(video => video.category === "BACK END");
     const innovacionYGestionVideos = videos.filter(video => video.category === "INNOVACIÓN Y GESTIÓN");
@@ -25,9 +25,24 @@ const Categorias = ( {videos = [], alSeleccionarEditor } ) => {
     return (
 
         <CategoriasContainer>
-            <CategoriaFront videos={frontEndVideos} alSeleccionarEditor={alSeleccionarEditor} />
-            <CategoriaBack videos={backEndVideos} alSeleccionarEditor={alSeleccionarEditor}/>
-            <CategoriaInnovacionYGestion videos={innovacionYGestionVideos}  alSeleccionarEditor={alSeleccionarEditor} />                                       
+            <CategoriaFront 
+                videos={frontEndVideos} 
+                alSeleccionarEditor={alSeleccionarEditor} 
+                alSolicitarZoom={alSolicitarZoom}
+                onDelete={onDelete}
+            />
+            <CategoriaBack 
+                videos={backEndVideos} 
+                alSeleccionarEditor={alSeleccionarEditor} 
+                alSolicitarZoom={alSolicitarZoom}
+                onDelete={onDelete}
+            />
+            <CategoriaInnovacionYGestion 
+                videos={innovacionYGestionVideos}
+                alSeleccionarEditor={alSeleccionarEditor} 
+                alSolicitarZoom={alSolicitarZoom}
+                onDelete={onDelete}
+            />                                       
         </CategoriasContainer>
     )
 }
@@ -35,6 +50,8 @@ const Categorias = ( {videos = [], alSeleccionarEditor } ) => {
 Categorias.propTypes = {
     videos: PropTypes.array.isRequired,
     alSeleccionarEditor: PropTypes.func.isRequired,
+    alSolicitarZoom: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default Categorias
