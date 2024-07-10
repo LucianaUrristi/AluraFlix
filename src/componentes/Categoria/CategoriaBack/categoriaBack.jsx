@@ -1,6 +1,8 @@
 import { styled } from "styled-components"
 import PropTypes from 'prop-types';
 import Card from "../Card/card";
+import { useContext } from "react";
+import { GlobalContext } from "../../../context/GlobalContext";
 
 const BackContainer = styled.section`
     display: flex;
@@ -73,7 +75,9 @@ const VideoContainer = styled.div`
 
 
 
-const CategoriaBack = ({ videos = [], alSeleccionarEditor, onDelete }) => {
+const CategoriaBack = ({ videos = [] }) => {
+    const { handleEdit, handleDelete } = useContext(GlobalContext);
+
     return (
         <BackContainer>
             <BotonBackGrande>BACK END</BotonBackGrande>
@@ -82,8 +86,8 @@ const CategoriaBack = ({ videos = [], alSeleccionarEditor, onDelete }) => {
                     <Card
                     key={video.id}
                     video= {video}
-                    handleEdit={() => alSeleccionarEditor(video)}
-                    handleDelete={() => onDelete(video)}
+                    handleEdit={() => handleEdit(video)}
+                    handleDelete={() => handleDelete(video)}
                 />
                     
                 ))}

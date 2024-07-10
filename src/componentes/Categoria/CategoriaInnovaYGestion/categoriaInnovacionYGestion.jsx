@@ -1,6 +1,8 @@
 import { styled } from "styled-components"
 import PropTypes from 'prop-types';
 import Card from "../Card/card";
+import { useContext } from "react";
+import { GlobalContext } from "../../../context/GlobalContext";
 
 const IyGContainer = styled.section`
     display: flex;
@@ -68,7 +70,9 @@ const VideoContainer = styled.div`
     
 `
 
-const CategoriaInnovacionYGestion = ({ videos = [], alSeleccionarEditor, onDelete }) => {
+const CategoriaInnovacionYGestion = ({ videos = [] }) => {
+    const { handleEdit, handleDelete } = useContext(GlobalContext);
+
     return (
         <IyGContainer>
             <BotonIYGGrande>INNOVACIÓN Y GESTIÓN</BotonIYGGrande>
@@ -77,8 +81,8 @@ const CategoriaInnovacionYGestion = ({ videos = [], alSeleccionarEditor, onDelet
                     <Card 
                         key={video.id}
                         video= {video}
-                        handleEdit={() => alSeleccionarEditor(video)}
-                        handleDelete={() => onDelete(video)}
+                        handleEdit={() => handleEdit(video)}
+                        handleDelete={() => handleDelete(video)}
                     />
                 ))}
             </VideoContainer>

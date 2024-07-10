@@ -1,83 +1,74 @@
-// import { createContext, useEffect, useReducer, useState } from "react";
-// import { PropTypes } from 'prop-types';
 
-// export const GlobalContext = createContext();
+import { createContext, useState, useContext } from 'react';
+import db from "../../db.json";
+import { PropTypes } from 'prop-types';
 
 
-// const initialState = {
-//     consulta: '',
-//     fotosDeGaleria: [],
-//     fotoSeleccionada: null,
-//     modalAbierto: false,
-// }
+export const GlobalContext = createContext();
 
-// const reducer = (state, action) => {
-//     switch (action.type) {
-//         case 'SET_CONSULTA':
-//             return { ...state, consulta: action.payload };
-//         case 'SET_FOTOS_DE_GALERIA':
-//             return { ...state, fotosDeGaleria: action.payload };
-//         case 'SET_FOTO_SELECCIONADA':
-//             return {
-//                 ...state,
-//                 fotoSeleccionada: action.payload,
-//                 modalAbierto: action.payload != null ? true : false
-//             };
-//         case 'ALTERNAR_FAVORITO':
-//             // const fotosDeGaleria = state.fotosDeGaleria.map(fotoDeGaleria => {
-//             //     return {
-//             //         ...fotoDeGaleria,
-//             //         favorita: fotoDeGaleria.id === action.payload.id ? !action.payload.favorita : fotoDeGaleria.favorita
-//             //     }
-//             // });
-//             if (action.payload.id === state.fotoSeleccionada?.id) {
-//                 return {
-//                     ...state,
-//                     // fotosDeGaleria: fotosDeGaleria,
-//                     fotoSeleccionada: {
-//                         ...state.fotoSeleccionada, favorita: !state.fotoSeleccionada.favorita
-//                     }
-//                 }
-//             } else {
-//                 return {
-//                     // ...state, fotosDeGaleria: fotosDeGaleria
-//                 }
-//             }
-//         default:
-//             return state;
-//     }
+export const useGlobalContext = () => useContext(GlobalContext);
+
+const GlobalContextProvider = ({ children }) => {
+    const [videos, setVideos] = useState(Array.isArray(db.videos) ? db.videos : []);
+    const video = videos.find(v => v.id === 1);
+
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
+
+    const handleSave = (updatedVideo) => {
+        const updatedVideos = videos.map(v => v.id === updatedVideo.id ? updatedVideo : v);
+        setVideos(updatedVideos);
+        setMostrarFormulario(false);
+        setSelectedVideo(null);
+    };
+
+    const handleDelete = (deletedVideo) => {
+    const deletedVideos = videos.filter(v => v.id !== deletedVideo.id);
+        setVideos(deletedVideos);
+        setSelectedVideo(null);
+    };
+
+    const handleCancel = () => {
+        setMostrarFormulario(false);
+        setSelectedVideo(null);
+    };
+
+    const handleEdit = (video) => {
+        setSelectedVideo(video); 
+        setMostrarFormulario(true); 
+    };
+
+    // const fetchVideos = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:3000/videos');
+    //         const data = await response.json();
+    //         setVideos(data);
+    //     } catch (error) {
+    //         console.error('Error fetching videos:', error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     fetchVideos();
+    // }, []);
+
+
+    return (
+        <GlobalContext.Provider value={{ video, 
+                                        videos, 
+                                        selectedVideo,
+                                        mostrarFormulario,
+                                        handleEdit,
+                                        handleDelete,
+                                        handleSave,
+                                        handleCancel}}>
+            {children}
+        </GlobalContext.Provider>
+    );
 // };
 
-// const GlobalContextProvider = ({ children }) => {
-
-//     const [state, dispatch] = useReducer(reducer, initialState);
-
-//     //const [consulta, setConsulta] = useState('');
-//     //const [fotosDeGaleria, setFotosDeGaleria] = useState([])
-//     //const [fotoSeleccionada, setFotoSeleccionada] = useState(null)
-
-//     useEffect(() => {
-//         const getData = async () => {
-//             const res = await fetch('http://localhost:3000/fotos');
-//             const data = await res.json();
-//             //setFotosDeGaleria([...data]);
-//             dispatch({ type: 'SET_FOTOS_DE_GALERIA', payload: data })
-//         }
-
-//         setTimeout(() => getData(), 5000);
-//     }, []);
-
-
-
-//     return (
-//         <GlobalContext.Provider value={{ state, dispatch }}>
-//             {children}
-//         </GlobalContext.Provider>
-//     )
-// }
-
-// GlobalContextProvider.propTypes = {
-//     children: PropTypes.node.isRequired,
-// };
-
-// export default GlobalContextProvider;
+}
+GlobalContextProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+export default GlobalContextProvider

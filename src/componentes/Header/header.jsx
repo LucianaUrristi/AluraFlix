@@ -17,7 +17,7 @@ const Nav = styled.nav `
     border-bottom: 4px solid #2271D1;
     box-shadow: 0px 5px 29px rgba(34, 113, 209, 0.75);
     width: 100%;
-    z-index: 1;
+    z-index: 2;
 
 
     img{
@@ -30,7 +30,6 @@ const Nav = styled.nav `
     }
 
 `
-
 const Botones = styled.div`
     display: flex;
     flex-direction: row;
@@ -49,7 +48,6 @@ const Botones = styled.div`
 const Header = () => {
     return (
         <Nav>
-            {/* <ShadowNav/> */}
             <a href="/">
                 <img src={logo} alt="Logo de Space App" />
             </a>

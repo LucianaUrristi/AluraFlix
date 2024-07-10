@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 import PropTypes from 'prop-types';
 import Card from "../Card/card";
+import { useContext } from "react";
+import { GlobalContext } from "../../../context/GlobalContext";
 
 
 const FrontContainer = styled.section`
@@ -86,7 +88,9 @@ const VideoContainer = styled.div`
 
 `
 
-const CategoriaFront = ({ videos = [], alSeleccionarEditor, onDelete }) => {
+const CategoriaFront = ({ videos = [] }) => {
+    const { handleEdit, handleDelete } = useContext(GlobalContext);
+
     const filteredVideos = videos.filter(video => video.id !== 1);
     return (
         
@@ -97,8 +101,8 @@ const CategoriaFront = ({ videos = [], alSeleccionarEditor, onDelete }) => {
                     <Card
                         key={video.id}
                         video= {video}
-                        handleEdit={() => alSeleccionarEditor(video)}
-                        handleDelete={() => onDelete(video)}
+                        handleEdit={() => handleEdit(video)}
+                        handleDelete={() => handleDelete(video)}
                         />
                     ))}
             </VideoContainer>

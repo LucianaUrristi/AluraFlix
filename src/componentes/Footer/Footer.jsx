@@ -14,9 +14,11 @@ const Foot = styled.nav `
     align-items: center;
     padding: 0 2%;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.90); ;
+    background-color: rgba(0, 0, 0, 0.9);
     border-top: 4px solid #2271D1;
-    box-shadow: 0px 5px 29px rgba(34, 113, 209, 1);
+    box-shadow: 0px 5px 29px rgba(34, 113, 209, 0.7),
+                inset 0px 100px  rgba(34, 113, 209, 0.05);
+    
 
     img{
         width: 100%;

@@ -1,5 +1,8 @@
 import { styled } from "styled-components";
 import PropTypes from 'prop-types';
+import bannerBackground from "../../assets/banner.png";
+import { useContext } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const BannerContainer = styled.section`
     display: flex;
@@ -10,7 +13,7 @@ const BannerContainer = styled.section`
     overflow: hidden;
 `
 const FigureEstilizada = styled.figure`
-    background-image: ${props => `url(${props.$backgroundImage})`};
+    background-image: url(${bannerBackground});
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -129,11 +132,13 @@ const BotonFront = styled.button`
 `
 
 
-const Banner = ({ backgroundImage, video, titulo, texto }) => {
+const Banner = ({ titulo, texto }) => {
+    const { video } = useContext(GlobalContext);
+
     return (
         <BannerContainer>
             
-            <FigureEstilizada $backgroundImage={backgroundImage}>
+            <FigureEstilizada src={bannerBackground}>
                 
                 <TextContainer>
                     <BotonFront>FRONT END</BotonFront>
@@ -155,7 +160,6 @@ const Banner = ({ backgroundImage, video, titulo, texto }) => {
 }
 
 Banner.propTypes = {
-    backgroundImage: PropTypes.string.isRequired,
     video: PropTypes.shape({
         link: PropTypes.string.isRequired,
         photo: PropTypes.string.isRequired

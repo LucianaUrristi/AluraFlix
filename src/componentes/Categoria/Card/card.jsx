@@ -83,7 +83,7 @@ const Card = ({video, handleEdit, handleDelete}) => {
                 <img src={video.photo} alt="video thumbnail" />
 
                 <Pie category={video.category}>
-                    <BotonIcono onClick={() => handleDelete(video)}>
+                                                                                            <BotonIcono onClick={() => handleDelete(video)}>
                         <img className="botones" src={eliminar} alt="Eliminar" />
                         BORRAR
                     </BotonIcono>

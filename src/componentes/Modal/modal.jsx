@@ -1,6 +1,8 @@
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
 import FormularioEditor from '../FormularioEditor/formularioEditor';
+import { useContext } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
+
 
 const Overlay = styled.div`
     background-color: rgba(3, 18, 47, 0.76);
@@ -19,23 +21,24 @@ const DialogEstilizado = styled.dialog`
     border: none;
 `
 
-const ModalZoom = ({ video, mostrarFormulario, onSave, onCancel }) =>{
+const ModalZoom = () =>{
+    const { selectedVideo, mostrarFormulario, handleSave, handleCancel } = useContext(GlobalContext);
+
     
-    
-    if (!video) {
+    if (!selectedVideo) {
         return null;
     }
 
     return <>
         <>
             <Overlay />
-            <DialogEstilizado open={!!video}>
+            <DialogEstilizado open={!!selectedVideo}>
                 <div>
                     {mostrarFormulario && (
                         <FormularioEditor 
-                            video={video} 
-                            onSave={onSave} 
-                            onCancel={onCancel} 
+                            video={selectedVideo} 
+                            onSave={handleSave} 
+                            onCancel={handleCancel} 
                         />
                     )}
                 </div>
@@ -44,11 +47,5 @@ const ModalZoom = ({ video, mostrarFormulario, onSave, onCancel }) =>{
     </>
 }
 
-ModalZoom.propTypes = {
-    video: PropTypes.object,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    mostrarFormulario: PropTypes.bool,
-};
 
 export default ModalZoom
