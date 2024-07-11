@@ -1,8 +1,10 @@
-import logo from "../../assets/logoAlura.png";
 import { styled } from 'styled-components';
+import { Link } from "react-router-dom";
+import logo from "../../assets/logoAlura.png";
 import BotonHome from "../Botones/botonHome";
 import home from "../../assets/home.png";
 import nuevoVideo from "../../assets/NuevoVideo.png";
+
 
 
 const Foot = styled.nav `
@@ -57,25 +59,26 @@ const Butons = styled.div`
         
     }
 `
+const LinkStyle = {
+    textDecoration: 'none',
+    color: 'inherit'
+};
 
 const Footer = () => {
     return (
         <Foot>
-            <a href="/">
+            <Link to="/" style={LinkStyle}>
                 <img className="logo" src={logo} alt="Logo de Space App" />
-            </a>
+            </Link>
             
             <Butons>
+                <Link to="/" style={LinkStyle}>
                 <BotonHome><img className="home" src={home} alt="Home"/>HOME</BotonHome>
-                <img className="nuevoVideo" src={nuevoVideo} alt="NuevoVideo"/>
-                {/* <HeaderLink url="./">INICIO</HeaderLink>
-                <HeaderLink url="./newVideo">NUEVO VIDEO</HeaderLink> */}
+                </Link>
+                <Link to="/NuevoVideo" style={LinkStyle}>
+                    <img className="nuevoVideo" src={nuevoVideo} alt="NuevoVideo"/>
+                </Link>
             </Butons>
-
-            
-        
-            
-            
         </Foot>
     )
 }

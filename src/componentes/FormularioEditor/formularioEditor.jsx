@@ -1,8 +1,8 @@
+import { useContext } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 import styled from 'styled-components';
 import BotonHome from '../Botones/botonHome';
 import BotonNV from '../Botones/botonNV';
-import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
 
 const FormContainer = styled.div`
     display: flex;
@@ -77,57 +77,54 @@ const FormularioEditor = () => {
         return null;
     }
 
-
     return (
-        
         <FormContainer>
-                <FormTitulo>EDITAR CARD:</FormTitulo>
-                    <Form>
-                        
-                        <Label>Título</Label>
-                            <input
-                                type="text"
-                                name="title"
-                                value={globalState.selectedVideo.title}
-                                onChange={globalState.handleChange}
-                            />
-                        <Label>Categoría</Label>
-                            <select name="category"
-                                value={globalState.selectedVideo.category}
-                                onChange={globalState.handleChange}>
-                                    <option  value={globalState.selectedVideo.category}>{globalState.selectedVideo.category}</option>
-                                    <option  value="FRONT END">FRONT END</option>
-                                    <option  value="BACK END">BACK END</option>
-                                    <option  value="INNOVACIÓN Y GESTIÓN">INNOVACIÓN Y GESTIÓN</option>
-                            </select>
-                        <Label>Imagen</Label>
-                            <input
-                                type="text"
-                                name="photo"
-                                value={globalState.selectedVideo.photo}
-                                onChange={globalState.handleChange}
-                            />
-                        <Label>Video</Label>
-                            <input
-                                type="text"
-                                name="link"
-                                value={globalState.selectedVideo.link}
-                                onChange={globalState.handleChange}
-                            />
-                        <Label>Description</Label>
-                            <textarea
-                                name="description"
-                                value={globalState.selectedVideo.description}
-                                onChange={globalState.handleChange}
-                            />
-                        <Botones>
-                            <BotonHome type="button" onClick={() =>globalState.handleSave(globalState.selectedVideo)}>GUARDAR</BotonHome>
-                            <BotonNV type="button" onClick={globalState.handleCancel}>CANCELAR</BotonNV>
-                        </Botones>
-                    </Form>
-                </FormContainer>
+            <FormTitulo>EDITAR CARD:</FormTitulo>
+                <Form>
+                    
+                    <Label>Título</Label>
+                        <input
+                            type="text"
+                            name="title"
+                            value={globalState.selectedVideo.title}
+                            onChange={globalState.handleChange}
+                        />
+                    <Label>Categoría</Label>
+                        <select name="category"
+                            value={globalState.selectedVideo.category}
+                            onChange={globalState.handleChange}>
+                                <option  value={globalState.selectedVideo.category}>{globalState.selectedVideo.category}</option>
+                                <option  value="FRONT END">FRONT END</option>
+                                <option  value="BACK END">BACK END</option>
+                                <option  value="INNOVACIÓN Y GESTIÓN">INNOVACIÓN Y GESTIÓN</option>
+                        </select>
+                    <Label>Imagen</Label>
+                        <input
+                            type="text"
+                            name="photo"
+                            value={globalState.selectedVideo.photo}
+                            onChange={globalState.handleChange}
+                        />
+                    <Label>Video</Label>
+                        <input
+                            type="text"
+                            name="link"
+                            value={globalState.selectedVideo.link}
+                            onChange={globalState.handleChange}
+                        />
+                    <Label>Description</Label>
+                        <textarea
+                            name="description"
+                            value={globalState.selectedVideo.description}
+                            onChange={globalState.handleChange}
+                        />
+                    <Botones>
+                        <BotonHome type="button" onClick={() =>globalState.handleSave(globalState.selectedVideo)}>GUARDAR</BotonHome>
+                        <BotonNV type="button" onClick={globalState.handleCancel}>CANCELAR</BotonNV>
+                    </Botones>
+                </Form>
+        </FormContainer>
     );
 };
-
 
 export default FormularioEditor;

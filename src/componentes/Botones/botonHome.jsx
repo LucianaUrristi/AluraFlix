@@ -15,6 +15,7 @@ const BotonHome = styled.button`
     height: 54px;
     box-shadow: inset 0px 0px 12px 4px rgba(34, 113, 209, 1);
     cursor: pointer;
+    
 
     @media (max-width: 768px) {
         font-size: 18px;

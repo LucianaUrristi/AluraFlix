@@ -1,9 +1,7 @@
-import styled from 'styled-components';
-import FormularioEditor from '../FormularioEditor/formularioEditor';
 import { useContext } from 'react';
 import { GlobalContext } from './../../context/GlobalContext';
-
-
+import styled from 'styled-components';
+import FormularioEditor from '../FormularioEditor/formularioEditor';
 
 const Overlay = styled.div`
     background-color: rgba(3, 18, 47, 0.76);
@@ -30,19 +28,17 @@ const ModalZoom = () =>{
     }
 
     return <>
-        <>
-            <Overlay/>
-            <DialogEstilizado open={!!globalState.selectedVideo}>
-                <div>
-                    
-                    <FormularioEditor 
-                    />
-                    
-                </div>
-            </DialogEstilizado>
-        </>
+        <Overlay/>
+        <DialogEstilizado open={!!globalState.selectedVideo}>
+            <div>
+                
+                <FormularioEditor 
+                />
+                
+            </div>
+        </DialogEstilizado>
+        
     </>
 }
-
 
 export default ModalZoom

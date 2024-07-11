@@ -1,11 +1,10 @@
 import { styled } from "styled-components";
+import { Link } from "react-router-dom";
 import BotonNV from "../../componentes/Botones/botonNV"
 import BotonHome from '../../componentes/Botones/botonHome';
 import logo from "../../assets/logoAlura.png";
 import home from "../../assets/homeNV.png";
 import nuevoVideo from "../../assets/plusNV.png";
-import { Link } from "react-router-dom";
-// import { useVideoContext } from '../../contexts/VideoContext';
 
 const Nav = styled.nav `
     width: 100%;
@@ -34,6 +33,7 @@ const BotonesNav = styled.div`
     display: flex;
     flex-direction: row;
     gap: 25px;
+    
     
     
     @media (max-width: 768px) {
@@ -275,7 +275,6 @@ const Foot = styled.nav `
     box-shadow: 0px 5px 29px rgba(34, 113, 209, 0.7),
                 inset 0px 100px  rgba(34, 113, 209, 0.05);
     
-
     img{
         width: 100%;
         height: 100%;
@@ -297,9 +296,6 @@ const Butons = styled.div`
         flex-direction: row;
         margin: 0;
         padding: 0;
-        
-        
-        
 
         .home{
             width: 58px;
@@ -318,61 +314,29 @@ const Butons = styled.div`
             height: 30px;
             
             }
-        
-        
     }
 `
+const LinkStyle = {
+    textDecoration: 'none',
+    color: 'inherit'
+};
 // const ErrorMessage = styled.span`
 //   color: #ff4d4d;
 //   font-size: 14px;
 //   margin-top: 5px;
 // `;
 const NuevoVideo = ()=>{
-    // const { addVideo } = useVideoContext();
-    // const initialFormData ={
-    //     titulo: '',
-    //     categoria: '',
-    //     imagen: '',
-    //     video: '',
-    //     descripcion: ''
-    // }
-    // const [formData, setFormData] = useState({initialFormData});
-    //   const [errors, setErrors] = useState({});
-    
-    //   const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setForm({
-    //       ...form,
-    //       [name]: value
-    //     });
-    //   };
-    
-    //   const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     // Validación y lógica de envío
-    //   };
-    
-    //   const handleReset = () => {
-    //     setForm({
-    //       titulo: '',
-    //       categoria: '',
-    //       imagen: '',
-    //       video: '',
-    //       descripcion: ''
-    //     });
-    //     setErrors({});
-    //   };
 
     return <>
         <Nav>
-            <a href="/">
+            <Link to="/" style={LinkStyle}>
                 <img src={logo} alt="Logo de Space App" />
-            </a>
+            </Link>
             <BotonesNav>
-                <Link to="/">
+                <Link to="/" style={LinkStyle}>
                 <BotonHome>HOME</BotonHome>
                 </Link>
-                <Link to="/NuevoVideo"> 
+                <Link to="/NuevoVideo" style={LinkStyle}> 
                     <BotonNV>NUEVO VIDEO</BotonNV>
                 </Link>
             </BotonesNav>
@@ -452,18 +416,18 @@ const NuevoVideo = ()=>{
                     </Form>
         </FormContainer>
         <Foot>
-            <a href="/">
+            <Link to="/" style={LinkStyle}>
                 <img className="logo" src={logo} alt="Logo de Space App" />
-            </a>
+            </Link>
             
             <Butons>
-                <img className="home" src={home} alt="Home"/>
-                <BotonHome className="botonNV"><img className="nuevoVideo" src={nuevoVideo} alt="NuevoVideo"/>NUEVO VIDEO</BotonHome>
-                
-                {/* <HeaderLink url="./">INICIO</HeaderLink>
-                <HeaderLink url="./newVideo">NUEVO VIDEO</HeaderLink> */}
+                <Link to="/" style={LinkStyle}>
+                    <img className="home" src={home} alt="Home"/>
+                </Link>
+                <Link to="/NuevoVideo" style={LinkStyle}>
+                    <BotonHome className="botonNV"><img className="nuevoVideo" src={nuevoVideo} alt="NuevoVideo"/>NUEVO VIDEO</BotonHome>
+                </Link>
             </Butons>
-
         </Foot>
     </>
     

@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
-import BotonIcono from "../../Botones/botonIcono";
-import eliminar from '../../../assets/eliminar.png'
-import editar from '../../../assets/editar.png'
 import { PropTypes } from 'prop-types';
 import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
+import BotonIcono from "../../Botones/botonIcono";
+import eliminar from '../../../assets/eliminar.png'
+import editar from '../../../assets/editar.png'
 
 
 const categoryColors={

@@ -1,8 +1,7 @@
 import { styled } from "styled-components";
-import Card from "../Card/card";
 import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
-
+import Card from "../Card/card";
 
 const FrontContainer = styled.section`
     display: flex;
@@ -12,7 +11,6 @@ const FrontContainer = styled.section`
     @media (max-width: 768px) {
         align-items: center;
     }
-
 `
 const BotonFrontGrande = styled.button`
     font-family: "Roboto", sans-serif;
@@ -29,12 +27,10 @@ const BotonFrontGrande = styled.button`
     border: none;
     margin: 0 0.5%;
     
-
     @media (max-width: 430px) {
         width: 100%;
         font-size: 1.5rem;
     }
-
 `
 
 const VideoContainer = styled.div`
@@ -72,23 +68,11 @@ const VideoContainer = styled.div`
         overflow-x: auto;
         width: 90%;
     }
-
-    
-
-    /* @media (max-width: 1440px){
-        overflow-x: auto;
-        width: 85%;
-    } */
-
-    
-
-
 `
 
 const CategoriaFront = () => {
     const { globalState } = useContext(GlobalContext);
 
-    // const filteredVideos = videos.filter(video => video.id !== 1);
     return (
         
         <FrontContainer>
@@ -106,8 +90,6 @@ const CategoriaFront = () => {
         </FrontContainer>  
     )
 }
-
-
 
 export default CategoriaFront
 

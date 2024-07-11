@@ -1,10 +1,8 @@
-import logo from "../../assets/logoAlura.png";
-// import HeaderLink from "../headerLink/HeaderLink";
 import { styled } from 'styled-components';
+import { Link } from "react-router-dom";
+import logo from "../../assets/logoAlura.png";
 import BotonHome from './../Botones/botonHome';
 import BotonNV from "../Botones/botonNV";
-import { Link } from "react-router-dom";
-
 
 const Nav = styled.nav `
     width: 100%;
@@ -19,7 +17,6 @@ const Nav = styled.nav `
     box-shadow: 0px 5px 29px rgba(34, 113, 209, 0.75);
     width: 100%;
     z-index: 2;
-
 
     img{
         width: 168.45px;
@@ -36,27 +33,28 @@ const Botones = styled.div`
     flex-direction: row;
     gap: 25px;
     
-    
     @media (max-width: 768px) {
         gap: 15px;
         width: 50%;
         
     }
-
-    
 `
+const LinkStyle = {
+    textDecoration: 'none',
+    color: 'inherit'
+};
 
 const Header = () => {
     return (
         <Nav>
-            <a href="/">
+            <Link to="/" style={LinkStyle}>
                 <img src={logo} alt="Logo de Space App" />
-            </a>
+            </Link>
             <Botones>
-                <Link to="/">
-                <BotonHome>HOME</BotonHome>
+                <Link to="/" style={LinkStyle}>
+                    <BotonHome>HOME</BotonHome>
                 </Link>
-                <Link to="/NuevoVideo"> 
+                <Link to="/NuevoVideo" style={LinkStyle}> 
                     <BotonNV>NUEVO VIDEO</BotonNV>
                 </Link>
                 

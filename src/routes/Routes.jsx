@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import styled from "styled-components";
 import Home from "../pages/Home/Home.jsx";
 import NuevoVideo from '../pages/NuevoVideo/NuevoVideo';
 import GlobalContextProvider from "../context/GlobalContext.jsx";

@@ -2,8 +2,6 @@ import CategoriaFront from "./CategoriaFront/categoriaFront";
 import CategoriaBack from './CategoriaBack/categoriaBack';
 import CategoriaInnovacionYGestion from "./CategoriaInnovaYGestion/categoriaInnovacionYGestion";
 import styled from "styled-components";
-// import { useContext } from "react";
-// import { GlobalContext } from "../../context/GlobalContext";
 
 const CategoriasContainer = styled.section`
     display: flex;
@@ -16,7 +14,6 @@ const CategoriasContainer = styled.section`
     }
 `;
 
-
 const Categorias = () => {  
     
     return (
@@ -28,7 +25,6 @@ const Categorias = () => {
         </CategoriasContainer>
     )
 }
-
 
 export default Categorias
 

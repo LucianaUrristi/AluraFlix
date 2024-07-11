@@ -1,7 +1,7 @@
 import { styled } from "styled-components"
-import Card from "../Card/card";
 import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
+import Card from "../Card/card";
 
 const BackContainer = styled.section`
     display: flex;

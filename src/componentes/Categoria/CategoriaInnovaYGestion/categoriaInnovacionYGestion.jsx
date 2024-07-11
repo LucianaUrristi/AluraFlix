@@ -1,7 +1,7 @@
 import { styled } from "styled-components"
-import Card from "../Card/card";
 import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
+import Card from "../Card/card";
 
 const IyGContainer = styled.section`
     display: flex;
@@ -89,8 +89,6 @@ const CategoriaInnovacionYGestion = () => {
         </IyGContainer>
     )
 }
-
-
 
 export default CategoriaInnovacionYGestion
 

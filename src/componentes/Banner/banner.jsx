@@ -145,7 +145,6 @@ const Banner = ({ titulo, texto }) => {
                     <TituloEstilizado>{titulo}</TituloEstilizado>
                     <Texto>{texto}</Texto>
                 </TextContainer>
-                 
                     <VideoCard>
                         <img
                             src={video.photo}
@@ -160,13 +159,8 @@ const Banner = ({ titulo, texto }) => {
 }
 
 Banner.propTypes = {
-    video: PropTypes.shape({
-        link: PropTypes.string.isRequired,
-        photo: PropTypes.string.isRequired
-    }),
     titulo: PropTypes.string.isRequired,
     texto: PropTypes.string.isRequired,
-    
 };
 
 export default Banner;

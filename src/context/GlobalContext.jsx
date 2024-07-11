@@ -1,8 +1,7 @@
 
 import { createContext, useEffect, useReducer } from 'react';
-import db from "../../db.json";
 import { PropTypes } from 'prop-types';
-
+import db from "../../db.json";
 
 export const GlobalContext = createContext();
 
