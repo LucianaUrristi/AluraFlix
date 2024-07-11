@@ -1,5 +1,4 @@
 import { styled } from "styled-components"
-import PropTypes from 'prop-types';
 import Card from "../Card/card";
 import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
@@ -70,19 +69,20 @@ const VideoContainer = styled.div`
     
 `
 
-const CategoriaInnovacionYGestion = ({ videos = [] }) => {
-    const { handleEdit, handleDelete } = useContext(GlobalContext);
+const CategoriaInnovacionYGestion = () => {
+        
+    const {  globalState } = useContext(GlobalContext);
 
     return (
         <IyGContainer>
             <BotonIYGGrande>INNOVACIÓN Y GESTIÓN</BotonIYGGrande>
             <VideoContainer>
-                {videos.map(video => (
+                {globalState.innovacionYGestionVideos.map(video => (
                     <Card 
                         key={video.id}
                         video= {video}
-                        handleEdit={() => handleEdit(video)}
-                        handleDelete={() => handleDelete(video)}
+                        handleEdit={() => globalState.handleEdit(video)}
+                        handleDelete={() => globalState.handleDelete(video)}
                     />
                 ))}
             </VideoContainer>
@@ -90,11 +90,7 @@ const CategoriaInnovacionYGestion = ({ videos = [] }) => {
     )
 }
 
-CategoriaInnovacionYGestion.propTypes = {
-    alSeleccionarEditor: PropTypes.func.isRequired,
-    videos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onDelete: PropTypes.func.isRequired,
-};
+
 
 export default CategoriaInnovacionYGestion
 

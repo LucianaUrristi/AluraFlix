@@ -3,6 +3,7 @@ import logo from "../../assets/logoAlura.png";
 import { styled } from 'styled-components';
 import BotonHome from './../Botones/botonHome';
 import BotonNV from "../Botones/botonNV";
+import { Link } from "react-router-dom";
 
 
 const Nav = styled.nav `
@@ -52,11 +53,15 @@ const Header = () => {
                 <img src={logo} alt="Logo de Space App" />
             </a>
             <Botones>
+                <Link to="/">
                 <BotonHome>HOME</BotonHome>
-                <BotonNV>NUEVO VIDEO</BotonNV>
+                </Link>
+                <Link to="/NuevoVideo"> 
+                    <BotonNV>NUEVO VIDEO</BotonNV>
+                </Link>
+                
             </Botones>
-            {/* <HeaderLink url="./">INICIO</HeaderLink>
-            <HeaderLink url="./newVideo">NUEVO VIDEO</HeaderLink> */}
+            
         </Nav>
     )
 }

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import FormularioEditor from '../FormularioEditor/formularioEditor';
 import { useContext } from 'react';
-import { GlobalContext } from '../../context/GlobalContext';
+import { GlobalContext } from './../../context/GlobalContext';
+
 
 
 const Overlay = styled.div`
@@ -22,25 +23,21 @@ const DialogEstilizado = styled.dialog`
 `
 
 const ModalZoom = () =>{
-    const { selectedVideo, mostrarFormulario, handleSave, handleCancel } = useContext(GlobalContext);
-
+    const { globalState } = useContext(GlobalContext);
     
-    if (!selectedVideo) {
+    if (!globalState.selectedVideo) {
         return null;
     }
 
     return <>
         <>
-            <Overlay />
-            <DialogEstilizado open={!!selectedVideo}>
+            <Overlay/>
+            <DialogEstilizado open={!!globalState.selectedVideo}>
                 <div>
-                    {mostrarFormulario && (
-                        <FormularioEditor 
-                            video={selectedVideo} 
-                            onSave={handleSave} 
-                            onCancel={handleCancel} 
-                        />
-                    )}
+                    
+                    <FormularioEditor 
+                    />
+                    
                 </div>
             </DialogEstilizado>
         </>

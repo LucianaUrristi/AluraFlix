@@ -1,5 +1,4 @@
 import { styled } from "styled-components"
-import PropTypes from 'prop-types';
 import Card from "../Card/card";
 import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
@@ -75,19 +74,19 @@ const VideoContainer = styled.div`
 
 
 
-const CategoriaBack = ({ videos = [] }) => {
-    const { handleEdit, handleDelete } = useContext(GlobalContext);
+const CategoriaBack = () => {
+    const { globalState } = useContext(GlobalContext);
 
     return (
         <BackContainer>
             <BotonBackGrande>BACK END</BotonBackGrande>
             <VideoContainer>
-                {videos.map(video => (
+                {globalState.backEndVideos.map(video => (
                     <Card
                     key={video.id}
                     video= {video}
-                    handleEdit={() => handleEdit(video)}
-                    handleDelete={() => handleDelete(video)}
+                    edit={() => globalState.handleEdit(video)}
+                    delete={() => globalState.handleDelete(video)}
                 />
                     
                 ))}
@@ -96,11 +95,7 @@ const CategoriaBack = ({ videos = [] }) => {
     )
 }
 
-CategoriaBack.propTypes = {
-    alSeleccionarEditor: PropTypes.func.isRequired,
-    videos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onDelete: PropTypes.func.isRequired,
-};
+
 
 export default CategoriaBack
 

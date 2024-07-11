@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import PropTypes from 'prop-types';
 import Card from "../Card/card";
 import { useContext } from "react";
 import { GlobalContext } from "../../../context/GlobalContext";
@@ -82,27 +81,25 @@ const VideoContainer = styled.div`
     } */
 
     
-       
 
-    
 
 `
 
-const CategoriaFront = ({ videos = [] }) => {
-    const { handleEdit, handleDelete } = useContext(GlobalContext);
+const CategoriaFront = () => {
+    const { globalState } = useContext(GlobalContext);
 
-    const filteredVideos = videos.filter(video => video.id !== 1);
+    // const filteredVideos = videos.filter(video => video.id !== 1);
     return (
         
         <FrontContainer>
             <BotonFrontGrande>FRONT END</BotonFrontGrande>
             <VideoContainer>
-                {filteredVideos.map(video => (
+                {globalState.frontEndVideos.map(video => (
                     <Card
                         key={video.id}
                         video= {video}
-                        handleEdit={() => handleEdit(video)}
-                        handleDelete={() => handleDelete(video)}
+                        handleEdit={() => globalState.handleEdit(video)}
+                        handleDelete={() => globalState.handleDelete(video)}
                         />
                     ))}
             </VideoContainer>
@@ -110,11 +107,7 @@ const CategoriaFront = ({ videos = [] }) => {
     )
 }
 
-CategoriaFront.propTypes = {
-    alSeleccionarEditor: PropTypes.func.isRequired,
-    videos: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onDelete: PropTypes.func.isRequired,
-};
+
 
 export default CategoriaFront
 

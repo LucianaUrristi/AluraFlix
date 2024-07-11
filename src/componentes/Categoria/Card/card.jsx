@@ -3,6 +3,8 @@ import BotonIcono from "../../Botones/botonIcono";
 import eliminar from '../../../assets/eliminar.png'
 import editar from '../../../assets/editar.png'
 import { PropTypes } from 'prop-types';
+import { useContext } from "react";
+import { GlobalContext } from "../../../context/GlobalContext";
 
 
 const categoryColors={
@@ -22,19 +24,24 @@ const Figure = styled.figure`
     
 `
 
-const VideoCard = styled.div`
+const VideoCard = styled.div.attrs(props => ({
+    style: {
+        borderColor: categoryColors[props.category]
+    }
+}))`
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
     margin: 10px;
-    border: 5px solid ${(props) => categoryColors[props.category]};
+    border-width: 5px;
+    border-style: solid;
     border-radius: 15px;
     width: 100%;
     margin: 5% 0;
-    
-    img{
+
+    img {
         width: 100%;
         z-index: 1;
         object-fit: cover;
@@ -42,40 +49,47 @@ const VideoCard = styled.div`
     }
 
     @media (max-width: 768px) {
-        
         min-width: 250px; 
     }
     @media (max-width: 430px) {
         width: 100%;
         min-width: 340px; 
     }
-
-`
-const ShadowContainer = styled.div`
+`;
+const ShadowContainer = styled.div.attrs(props => ({
+    style: {
+        boxshadow: `inset 0px 4px 29px ${categoryColors[props.category]}`
+    }
+}))`
 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    box-shadow: inset 0px 4px 29px ${(props) => categoryColors[props.category]};
     z-index: 2;
     pointer-events: none;
 `
-const Pie = styled.div`
+const Pie = styled.div.attrs(props => ({
+    style: {
+        borderTopColor: categoryColors[props.category],
+        boxShadow: `0 4px 29px 0 ${categoryColors[props.category]}`
+    }
+}))`
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     width: 100%;
     background-color: #03122F;
-    border-top: 5px solid ${(props) => categoryColors[props.category]};
-    box-shadow:  0 4px 29px 0 ${(props) => categoryColors[props.category]};
+    border-top-width: 5px;
+    border-top-style: solid;
     z-index: 2;
-    max-height:3rem;
-`
+    max-height: 3rem;
+`;
 
-const Card = ({video, handleEdit, handleDelete}) => {
+const Card = ({ video }) => {
+    const { globalState } = useContext(GlobalContext);
     
     return (
         <Figure>
@@ -83,11 +97,13 @@ const Card = ({video, handleEdit, handleDelete}) => {
                 <img src={video.photo} alt="video thumbnail" />
 
                 <Pie category={video.category}>
-                                                                                            <BotonIcono onClick={() => handleDelete(video)}>
+                    <BotonIcono onClick={() => globalState.handleDelete(video)}>
                         <img className="botones" src={eliminar} alt="Eliminar" />
                         BORRAR
                     </BotonIcono>
-                    <BotonIcono onClick={() => handleEdit(video)}>
+
+                    <BotonIcono onClick={() => globalState.handleEdit(video)}>
+                        
                         <img className="botones" src={editar} alt="Editar" />
                         EDITAR
                     </BotonIcono>
@@ -100,8 +116,6 @@ const Card = ({video, handleEdit, handleDelete}) => {
 
 Card.propTypes = {
     video: PropTypes.object.isRequired,
-    handleEdit: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired,
 };
 
 export default Card;

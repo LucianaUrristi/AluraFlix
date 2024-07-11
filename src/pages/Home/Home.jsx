@@ -15,43 +15,42 @@ const Fondo= styled.div`
 `;
 
 const MainContainer = styled.main`
-  display: flex;
-  height: 100%;
+    display: flex;
+    height: 100%;
 
-  @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 16px;
-      
-  }
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 16px;
+    }
 `;
 const ContenidoGaleria = styled.section`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
 `;
 
 
 const Home = () =>{
     
     return <>
-    <Fondo>
+        <Fondo>
         
-        <GlobalContextProvider>
-            
-            <Header />
-            <MainContainer>
-                <ContenidoGaleria>
-                <Banner
-                    titulo="Challenge React"
-                    texto="Este challenge es una forma de aprendizaje. Es un mecanismo donde podrás comprometerte en la resolución de un problema para poder aplicar todos los conocimientos adquiridos en la formación React."
-                />
-                <Categorias/>
-                <ModalZoom/>
-                </ContenidoGaleria>
-            </MainContainer>
-            <Footer />
-        </GlobalContextProvider>
+            <GlobalContextProvider>
+                
+                <Header />
+                <MainContainer>
+                    <ContenidoGaleria>
+                        <Banner
+                            titulo="Challenge React"
+                            texto="Este challenge es una forma de aprendizaje. Es un mecanismo donde podrás comprometerte en la resolución de un problema para poder aplicar todos los conocimientos adquiridos en la formación React."
+                        />
+                        <Categorias />
+                        <ModalZoom />
+                    </ContenidoGaleria>
+                </MainContainer>
+                <Footer />
+            </GlobalContextProvider>
         </Fondo>
     </>
 }

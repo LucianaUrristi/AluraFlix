@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import BotonHome from '../Botones/botonHome';
 import BotonNV from '../Botones/botonNV';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { GlobalContext } from '../../context/GlobalContext';
 
 const FormContainer = styled.div`
     display: flex;
@@ -70,43 +70,17 @@ const Botones = styled.div`
     margin: 5%;
 `
 
-const FormularioEditor = ({ video, onSave, onCancel}) => {
-    const [formValues, setFormValues] = useState({
-        id: video.id,
-        title: video.title,
-        category: video.category,
-        photo: video.photo,
-        link: video.link,
-        description: video.description,
-    });
-    
-    const handleChange = (e) => {
-        setFormValues({ ...formValues, [e.target.name]: e.target.value });
-    };
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onSave(formValues);
-    };
-    
-    const handleCancel = () => {
-        setFormValues({
-            title: video.title,
-            category: video.category,
-            photo: video.photo,
-            link: video.link,
-            description: video.description,
-        });
-        onCancel();
-    };
-    
-    if (!video) {
+const FormularioEditor = () => {
+    const { globalState } = useContext(GlobalContext);
+
+    if (!globalState.selectedVideo) {
         return null;
     }
 
 
     return (
-        <FormContainer onSubmit={handleSubmit}>
+        
+        <FormContainer>
                 <FormTitulo>EDITAR CARD:</FormTitulo>
                     <Form>
                         
@@ -114,14 +88,14 @@ const FormularioEditor = ({ video, onSave, onCancel}) => {
                             <input
                                 type="text"
                                 name="title"
-                                value={formValues.title}
-                                onChange={handleChange}
+                                value={globalState.selectedVideo.title}
+                                onChange={globalState.handleChange}
                             />
                         <Label>Categoría</Label>
                             <select name="category"
-                                value={formValues.category}
-                                onChange={handleChange}>
-                                    <option  value={formValues.category.value}>{formValues.category}</option>
+                                value={globalState.selectedVideo.category}
+                                onChange={globalState.handleChange}>
+                                    <option  value={globalState.selectedVideo.category}>{globalState.selectedVideo.category}</option>
                                     <option  value="FRONT END">FRONT END</option>
                                     <option  value="BACK END">BACK END</option>
                                     <option  value="INNOVACIÓN Y GESTIÓN">INNOVACIÓN Y GESTIÓN</option>
@@ -130,35 +104,30 @@ const FormularioEditor = ({ video, onSave, onCancel}) => {
                             <input
                                 type="text"
                                 name="photo"
-                                value={formValues.photo}
-                                onChange={handleChange}
+                                value={globalState.selectedVideo.photo}
+                                onChange={globalState.handleChange}
                             />
                         <Label>Video</Label>
                             <input
                                 type="text"
                                 name="link"
-                                value={formValues.link}
-                                onChange={handleChange}
+                                value={globalState.selectedVideo.link}
+                                onChange={globalState.handleChange}
                             />
                         <Label>Description</Label>
                             <textarea
                                 name="description"
-                                value={formValues.description}
-                                onChange={handleChange}
+                                value={globalState.selectedVideo.description}
+                                onChange={globalState.handleChange}
                             />
                         <Botones>
-                            <BotonHome type="button" onClick={handleSubmit}>GUARDAR</BotonHome>
-                            <BotonNV type="button" onClick={handleCancel}>CANCELAR</BotonNV>
+                            <BotonHome type="button" onClick={() =>globalState.handleSave(globalState.selectedVideo)}>GUARDAR</BotonHome>
+                            <BotonNV type="button" onClick={globalState.handleCancel}>CANCELAR</BotonNV>
                         </Botones>
                     </Form>
                 </FormContainer>
     );
 };
 
-FormularioEditor.propTypes = {
-    video: PropTypes.object,
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-};
 
 export default FormularioEditor;

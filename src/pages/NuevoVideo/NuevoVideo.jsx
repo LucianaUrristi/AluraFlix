@@ -4,6 +4,7 @@ import BotonHome from '../../componentes/Botones/botonHome';
 import logo from "../../assets/logoAlura.png";
 import home from "../../assets/homeNV.png";
 import nuevoVideo from "../../assets/plusNV.png";
+import { Link } from "react-router-dom";
 // import { useVideoContext } from '../../contexts/VideoContext';
 
 const Nav = styled.nav `
@@ -368,8 +369,12 @@ const NuevoVideo = ()=>{
                 <img src={logo} alt="Logo de Space App" />
             </a>
             <BotonesNav>
-                <BotonNV>HOME</BotonNV>
-                <BotonHome>NUEVO VIDEO</BotonHome>
+                <Link to="/">
+                <BotonHome>HOME</BotonHome>
+                </Link>
+                <Link to="/NuevoVideo"> 
+                    <BotonNV>NUEVO VIDEO</BotonNV>
+                </Link>
             </BotonesNav>
         </Nav>
         <FormContainer>

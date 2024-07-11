@@ -1,71 +1,105 @@
 
-import { createContext, useState, useContext } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import db from "../../db.json";
 import { PropTypes } from 'prop-types';
 
 
 export const GlobalContext = createContext();
 
-export const useGlobalContext = () => useContext(GlobalContext);
+const initialState = {
+    videos: Array.isArray(db.videos) ? db.videos : [],
+    selectedVideo: null,
+};
+
+const reducers = (state, action) => {
+        switch (action.type) {
+            case 'SET_VIDEOS':
+                return {...state, videos: action.payload };
+            case 'SET_SELECTED_VIDEO':
+                return {...state, selectedVideo: action.payload };
+            case 'SET_MOSTRAR_FORMULARIO':
+                return {...state, mostrarFormulario: action.payload };
+            case 'SET_CHANGE':
+                return {...state, selectedVideo: {...state.selectedVideo, [action.payload.name]: action.payload.value }};
+
+            default:
+                return state;
+        }
+}
 
 const GlobalContextProvider = ({ children }) => {
-    const [videos, setVideos] = useState(Array.isArray(db.videos) ? db.videos : []);
-    const video = videos.find(v => v.id === 1);
 
-    const [selectedVideo, setSelectedVideo] = useState(null);
-    const [mostrarFormulario, setMostrarFormulario] = useState(false);
+    const [state, dispatch] = useReducer(reducers, initialState);
 
-    const handleSave = (updatedVideo) => {
-        const updatedVideos = videos.map(v => v.id === updatedVideo.id ? updatedVideo : v);
-        setVideos(updatedVideos);
-        setMostrarFormulario(false);
-        setSelectedVideo(null);
+    useEffect(() => {
+        const fetchVideos = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/videos');
+                const data = await response.json();
+                dispatch({ type: 'SET_VIDEOS', payload: data });
+            } catch (error) {
+                console.error('Error fetching videos:', error);
+            }
+        };
+        fetchVideos();
+    }, []);
+
+    
+    const frontEndVideos = state.videos.filter(video => video.category === "FRONT END" && video.id != 1);
+    const backEndVideos = state.videos.filter(video => video.category === "BACK END");
+    const innovacionYGestionVideos = state.videos.filter(video => video.category === "INNOVACIÓN Y GESTIÓN");
+
+    
+
+    const handleSave = (video) => {
+        const updatedVideos = state.videos.map(v => v.id === video.id ? video : v);
+        dispatch({ type: 'SET_VIDEOS', payload: updatedVideos });
+        dispatch({ type: 'SET_MOSTRAR_FORMULARIO', payload: false });
+        dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
     };
 
     const handleDelete = (deletedVideo) => {
-    const deletedVideos = videos.filter(v => v.id !== deletedVideo.id);
-        setVideos(deletedVideos);
-        setSelectedVideo(null);
+    const deletedVideos = state.videos.filter(v => v.id !== deletedVideo.id);
+        dispatch({ type: 'SET_VIDEOS', payload: deletedVideos });
+        dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
     };
 
     const handleCancel = () => {
-        setMostrarFormulario(false);
-        setSelectedVideo(null);
+        dispatch({ type: 'SET_MOSTRAR_FORMULARIO', payload: false });
+        dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
     };
 
     const handleEdit = (video) => {
-        setSelectedVideo(video); 
-        setMostrarFormulario(true); 
+        dispatch({ type: 'SET_SELECTED_VIDEO', payload: video });
+        dispatch({ type: 'SET_MOSTRAR_FORMULARIO', payload: true });
     };
 
-    // const fetchVideos = async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:3000/videos');
-    //         const data = await response.json();
-    //         setVideos(data);
-    //     } catch (error) {
-    //         console.error('Error fetching videos:', error);
-    //     }
-    // };
+    const handleChange = (e) => {
+        
+        dispatch({ type: 'SET_CHANGE', payload: { name: e.target.name, value: e.target.value } });
+        
+    };
 
-    // useEffect(() => {
-    //     fetchVideos();
-    // }, []);
-
+    const globalState = { 
+        videos: state.videos,
+        selectedVideo: state.selectedVideo,
+        mostrarFormulario: state.mostrarFormulario,
+        handleEdit,
+        handleDelete,
+        handleSave,
+        handleCancel,
+        frontEndVideos,
+        backEndVideos,
+        innovacionYGestionVideos,
+        handleChange,
+    }
 
     return (
-        <GlobalContext.Provider value={{ video, 
-                                        videos, 
-                                        selectedVideo,
-                                        mostrarFormulario,
-                                        handleEdit,
-                                        handleDelete,
-                                        handleSave,
-                                        handleCancel}}>
+        <GlobalContext.Provider value={{ globalState, dispatch }}>
             {children}
         </GlobalContext.Provider>
     );
-// };
+
 
 }
 GlobalContextProvider.propTypes = {

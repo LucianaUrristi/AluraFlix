@@ -133,8 +133,8 @@ const BotonFront = styled.button`
 
 
 const Banner = ({ titulo, texto }) => {
-    const { video } = useContext(GlobalContext);
-
+    const { globalState } = useContext(GlobalContext);
+    const video = globalState.videos.find(video => video.id == 1);
     return (
         <BannerContainer>
             
@@ -145,7 +145,7 @@ const Banner = ({ titulo, texto }) => {
                     <TituloEstilizado>{titulo}</TituloEstilizado>
                     <Texto>{texto}</Texto>
                 </TextContainer>
-                {video && (
+                 
                     <VideoCard>
                         <img
                             src={video.photo}
@@ -153,7 +153,7 @@ const Banner = ({ titulo, texto }) => {
                         />
                         <ShadowContainer/>
                     </VideoCard>
-                )}
+                
             </FigureEstilizada>
         </BannerContainer>
     );
