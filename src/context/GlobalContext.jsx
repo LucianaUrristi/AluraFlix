@@ -20,7 +20,6 @@ const reducers = (state, action) => {
                 return {...state, mostrarFormulario: action.payload };
             case 'SET_CHANGE':
                 return {...state, selectedVideo: {...state.selectedVideo, [action.payload.name]: action.payload.value }};
-
             default:
                 return state;
         }
@@ -43,24 +42,46 @@ const GlobalContextProvider = ({ children }) => {
         fetchVideos();
     }, []);
 
-    
     const frontEndVideos = state.videos.filter(video => video.category === "FRONT END" && video.id != 1);
     const backEndVideos = state.videos.filter(video => video.category === "BACK END");
     const innovacionYGestionVideos = state.videos.filter(video => video.category === "INNOVACIÓN Y GESTIÓN");
+        
 
-    
-
-    const handleSave = (video) => {
-        const updatedVideos = state.videos.map(v => v.id === video.id ? video : v);
-        dispatch({ type: 'SET_VIDEOS', payload: updatedVideos });
-        dispatch({ type: 'SET_MOSTRAR_FORMULARIO', payload: false });
-        dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
+    const handleSave = async (editedVideo) => {
+        try {
+            const response = await fetch(`http://localhost:3001/videos/${editedVideo.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editedVideo),
+            });
+            const data = await response.json();
+            console.log(data);
+            const updatedVideos = state.videos.map(v => (v.id === editedVideo.id ? editedVideo : v));
+            dispatch({ type: 'SET_VIDEOS', payload: updatedVideos });
+            dispatch({ type: 'SET_MOSTRAR_FORMULARIO', payload: false });
+            dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
+        } catch (error) {
+            console.error('Error editing video:', error);
+        }
     };
 
-    const handleDelete = (deletedVideo) => {
-    const deletedVideos = state.videos.filter(v => v.id !== deletedVideo.id);
-        dispatch({ type: 'SET_VIDEOS', payload: deletedVideos });
-        dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
+    const handleDelete = async (deletedVideo) => {
+        try {
+            const response = await fetch(`http://localhost:3001/videos/${deletedVideo.id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                const deletedVideos = state.videos.filter(v => v.id !== deletedVideo.id);
+                dispatch({ type: 'SET_VIDEOS', payload: deletedVideos });
+                dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
+            } else {
+                console.error('Failed to delete video');
+            }
+        } catch (error) {
+            console.error('Error deleting video:', error);
+        }
     };
 
     const handleCancel = () => {
@@ -74,7 +95,6 @@ const GlobalContextProvider = ({ children }) => {
     };
 
     const handleChange = (e) => {
-        
         dispatch({ type: 'SET_CHANGE', payload: { name: e.target.name, value: e.target.value } });
         
     };
@@ -87,10 +107,11 @@ const GlobalContextProvider = ({ children }) => {
         handleDelete,
         handleSave,
         handleCancel,
+        handleChange,
         frontEndVideos,
         backEndVideos,
         innovacionYGestionVideos,
-        handleChange,
+        
     }
 
     return (

@@ -18,7 +18,7 @@ function AppRoutes() {
                 <AppContainer>
                     <Routes>
                         <Route index element={<Home />}></Route>
-                        <Route path="NuevoVideo" element={<NuevoVideo />}></Route>
+                        <Route path="/NuevoVideo" element={<NuevoVideo />}></Route>
                     </Routes>
                 </AppContainer>
             </BrowserRouter>

@@ -7,6 +7,7 @@ import eliminar from '../../../assets/eliminar.png'
 import editar from '../../../assets/editar.png'
 
 
+
 const categoryColors={
     "FRONT END": "rgba(107, 209, 255, 0.75)",
     "BACK END": "rgba(0, 200, 111, 0.75)",
@@ -87,15 +88,34 @@ const Pie = styled.div.attrs(props => ({
     z-index: 2;
     max-height: 3rem;
 `;
+// const LinkStyle = {
+//     textDecoration: 'none',
+//     color: 'inherit',
+//     width: '100%',
+//     height: '100%',
+//     display: 'flex',
+//     justifyContent: 'center',
+//     alignItems: 'center',
+// };
 
+const StyledLink = styled.a`
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 const Card = ({ video }) => {
     const { globalState } = useContext(GlobalContext);
     
     return (
         <Figure>
             <VideoCard category={video.category}>
-                <img src={video.photo} alt="video thumbnail" />
-
+                <StyledLink href={video.link} target="_blank" rel="noopener noreferrer">
+                    <img src={video.photo} alt="video thumbnail" />
+                </StyledLink>
                 <Pie category={video.category}>
                     <BotonIcono onClick={() => globalState.handleDelete(video)}>
                         <img className="botones" src={eliminar} alt="Eliminar" />

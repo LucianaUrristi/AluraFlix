@@ -1,10 +1,12 @@
 import { styled } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BotonNV from "../../componentes/Botones/botonNV"
 import BotonHome from '../../componentes/Botones/botonHome';
 import logo from "../../assets/logoAlura.png";
 import home from "../../assets/homeNV.png";
 import nuevoVideo from "../../assets/plusNV.png";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../../context/GlobalContext";
 
 const Nav = styled.nav `
     width: 100%;
@@ -151,11 +153,6 @@ const Grupo1 = styled.div`
     .categoria{
         
         width: 55%;
-
-        .option{
-            background-color: red;
-            color: red;
-        }
 
         @media (max-width: 768px) {
         width: 49%;
@@ -320,12 +317,79 @@ const LinkStyle = {
     textDecoration: 'none',
     color: 'inherit'
 };
-// const ErrorMessage = styled.span`
-//   color: #ff4d4d;
-//   font-size: 14px;
-//   margin-top: 5px;
-// `;
+
 const NuevoVideo = ()=>{
+    const { dispatch } = useContext(GlobalContext);
+    const [newVideo, setNewVideo] = useState({
+        
+        title: '',
+        category: '',
+        photo: '',
+        link: '',
+        description: '',
+    });
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
+    const navigateTo = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setNewVideo({ ...newVideo, [name]: value });
+    };
+
+    const handleAddVideo = async () => {
+        try {
+            setShowSuccessMessage(false);
+            setShowErrorMessage(false);
+            if (newVideo.title && newVideo.category && newVideo.photo && newVideo.link && newVideo.description) {
+                const response = await fetch('http://localhost:3001/videos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newVideo),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to add video');
+                }
+                const data = await response.json();
+
+                dispatch({ type: 'ADD_VIDEO', payload: data });
+                dispatch({ type: 'SET_MOSTRAR_FORMULARIO', payload: false });
+                dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
+
+                setShowSuccessMessage(true);
+                
+                setTimeout(() => {
+                    setShowSuccessMessage(false),
+                    navigateTo('/');
+                }, 3000); 
+                
+                
+            } else {
+                setShowErrorMessage(true);
+            }
+        } catch (error) {
+            console.error('Error adding video:', error);
+            setShowErrorMessage(true);
+        }
+    };
+
+    const handleClean = () => {
+        
+        dispatch({ type: 'SET_MOSTRAR_FORMULARIO', payload: false });
+        dispatch({ type: 'SET_SELECTED_VIDEO', payload: null });
+        setNewVideo({
+            title: '',
+            category: '',
+            photo: '',
+            link: '',
+            description: ''
+        });
+        setShowSuccessMessage(false);
+        setShowErrorMessage(false);
+    };
 
     return <>
         <Nav>
@@ -354,23 +418,22 @@ const NuevoVideo = ()=>{
                                     <input
                                         type="text"
                                         name="title"
-                                        // value={formValues.title}
-                                        // onChange={handleChange}
+                                        value={newVideo.title}
+                                        onChange={handleChange}
                                         placeholder="Ingrese el título"
                                     />
-                                    {/* {errors.titulo && <ErrorMessage>{errors.titulo}</ErrorMessage>} */}
                             </FormGroup>
                             <FormGroup className="categoria">   
                                 <Label>Categoría</Label>
-                                    <select name="category">
-                                        {/* value={formValues.category}
-                                        onChange={handleChange}> */}
+                                    <select name="category"
+                                        value={newVideo.category}
+                                        onChange={handleChange}
+                                        >
                                             <option value="">Seleccione una categoría</option>
                                             <option value="FRONT END">FRONT END</option>
                                             <option value="BACK END">BACK END</option>
                                             <option value="INNOVACIÓN Y GESTIÓN">INNOVACIÓN Y GESTIÓN</option>
                                     </select>
-                                    {/* {errors.category && <ErrorMessage>{errors.category}</ErrorMessage>} */}
                             </FormGroup>
                         </Grupo1>
                         <Grupo2>
@@ -379,40 +442,48 @@ const NuevoVideo = ()=>{
                                     <input
                                         type="text"
                                         name="photo"
-                                        // value={formValues.photo}
-                                        // onChange={handleChange}
+                                        value={newVideo.photo}
+                                        onChange={handleChange}
                                         placeholder="Ingrese el enlace de la imagen"
                                     />
-                                    {/* {errors.imagen && <ErrorMessage>{errors.imagen}</ErrorMessage>} */}
                             </FormGroup>
                             <FormGroup className="video">
                                 <Label>Video</Label>
                                     <input
                                         type="text"
                                         name="link"
-                                        // value={formValues.link}
-                                        // onChange={handleChange}
+                                        value={newVideo.link}
+                                        onChange={handleChange}
                                         placeholder="Ingrese el enlace del video"
                                     />
-                                    {/* {errors.video && <ErrorMessage>{errors.video}</ErrorMessage>} */}
                             </FormGroup>
                         </Grupo2>
                         <Grupo3>
                             <FormGroup className="descripcion">
                             <Label>Description</Label>
                                 <textarea
+                                    
                                     name="description"
-                                    // value={formValues.description}
-                                    // onChange={handleChange}
+                                    value={newVideo.description}
+                                    onChange={handleChange}
                                     placeholder="¿De qué se trata este video?"
                                 />
-                                {/* {errors.descripcion && <ErrorMessage>{errors.descripcion}</ErrorMessage>} */}
                             </FormGroup>
                         </Grupo3>
                         <Botones>
-                            <BotonNV type="button" className="guardar">GUARDAR</BotonNV>
-                            <BotonNV type="button" >CANCELAR</BotonNV>
+                            <BotonNV type="button" onClick={handleAddVideo} className="guardar">GUARDAR</BotonNV>
+                            <BotonNV type="button" onClick={handleClean}>LIMPIAR</BotonNV>
                         </Botones>
+                        {showSuccessMessage && (
+                                    <p style={{ color: "green", marginTop: "10px" }}>
+                                        ¡Video registrado exitosamente!
+                                    </p>  
+                        )}
+                        {showErrorMessage && (
+                            <p style={{ color: "red", marginTop: "10px" }}>
+                                ¡Vuelva a intentarlo! Por favor complete todos los campos del formulario.
+                            </p>
+                        )}
                     </Form>
         </FormContainer>
         <Foot>

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import PropTypes from 'prop-types';
 import bannerBackground from "../../assets/banner.png";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 
 const BannerContainer = styled.section`
@@ -63,12 +63,13 @@ const VideoCard = styled.div`
     border: 3px solid #6BD1FF;
     border-radius: 15px;
     z-index: 1;
+    cursor: pointer;
+    height: auto;
 
-    img{
+    img, iframe{
         width: 100%;
-        height: auto;
-        background-size: cover;
-        cursor: pointer;
+        height: 33vh;
+        border-radius: 15px;
     }
     @media (max-width: 768px) {
         min-width: 30%;
@@ -85,7 +86,6 @@ const ShadowContainer = styled.div`
     z-index: 2;
     pointer-events: none;
 `
-
 const TituloEstilizado = styled.h1`
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
@@ -135,6 +135,12 @@ const BotonFront = styled.button`
 const Banner = ({ titulo, texto }) => {
     const { globalState } = useContext(GlobalContext);
     const video = globalState.videos.find(video => video.id == 1);
+
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const handlePlayVideo = () => {
+        setIsPlaying(true);
+    };
     return (
         <BannerContainer>
             
@@ -145,14 +151,19 @@ const Banner = ({ titulo, texto }) => {
                     <TituloEstilizado>{titulo}</TituloEstilizado>
                     <Texto>{texto}</Texto>
                 </TextContainer>
-                    <VideoCard>
-                        <img
-                            src={video.photo}
-                            alt="video thumbnail"
-                        />
+                    <VideoCard >
+                        {isPlaying ? (
+                            <iframe 
+                                src={video.link}
+                                title="Video"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"  
+                                allowFullScreen
+                            ></iframe>
+                        ) : (
+                            <img src={video.photo} alt="video thumbnail" onClick={handlePlayVideo}/>
+                        )}
                         <ShadowContainer/>
                     </VideoCard>
-                
             </FigureEstilizada>
         </BannerContainer>
     );
