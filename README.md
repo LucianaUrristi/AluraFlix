@@ -11,5 +11,5 @@ En la página de Home se verá agregado el nuevo video.
 
 Cada tarjeta tiene una función para edita, por lo que se abrirá una ventana emergente para poder modificarla.
 
-La página posee recursividad para dispositivos móviles como tables y celulares.
+La página posee responsividad para dispositivos móviles como tables y celulares.
 
